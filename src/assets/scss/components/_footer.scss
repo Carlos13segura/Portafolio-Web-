@@ -1,0 +1,893 @@
+/* =========================================
+   FOOTER SECTION SCSS
+   ========================================= */
+
+/* -----------------------------------------
+   1. Imports & Config
+   ----------------------------------------- */
+// Variables and Mixins imported globally
+
+/* -----------------------------------------
+   2. Footer Layout
+   ----------------------------------------- */
+.footer {
+  padding: 4rem 0 2rem;
+  background-color: var(--dark-primary);
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+  // Top Gradient Line
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-purple), transparent);
+    opacity: 0.5;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  /* -----------------------------------------
+     3. Branding
+     ----------------------------------------- */
+  &__brand {
+    text-align: center;
+
+    .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+      margin-bottom: 0.5rem;
+      display: inline-block;
+
+      .text-accent {
+        color: var(--accent-purple);
+      }
+    }
+
+    .footer-tagline {
+      color: var(--gray-400);
+      font-size: 1rem;
+    }
+  }
+
+  /* -----------------------------------------
+     4. Navigation
+     ----------------------------------------- */
+  &__nav {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .footer-link {
+      color: var(--gray-400);
+      text-decoration: none;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--accent-purple);
+        transition: width 0.3s ease;
+      }
+
+      &:hover {
+        color: var(--white);
+
+        &::after {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  /* -----------------------------------------
+     5. Social Icons
+     ----------------------------------------- */
+  &__social {
+    display: flex;
+    gap: 1.5rem;
+
+    .social-link {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.25rem;
+      color: var(--white);
+      text-decoration: none;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+      &:hover {
+        transform: translateY(-5px) scale(1.1);
+        background: var(--accent-purple);
+        border-color: var(--accent-purple);
+        box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+      }
+    }
+  }
+
+  /* -----------------------------------------
+     6. Copyright
+     ----------------------------------------- */
+  &__copyright {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    width: 100%;
+
+    p {
+      color: var(--gray-500);
+      font-size: 0.875rem;
+
+      i {
+        color: #ef4444; // Heart color
+        margin: 0 0.25rem;
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   7. Footer Variants & Enhancements
+   ----------------------------------------- */
+
+.footer {
+  // Compact variant
+  &.compact {
+    padding: 2rem 0 1rem;
+
+    .container {
+      gap: 1.5rem;
+    }
+
+    &__brand,
+    &__nav,
+    &__social,
+    &__copyright {
+      margin: 0;
+    }
+  }
+
+  // Extended variant
+  &.extended {
+    padding: 6rem 0 3rem;
+
+    .container {
+      gap: 4rem;
+    }
+  }
+
+  // Dark overlay variant
+  &.dark-overlay {
+    background: linear-gradient(180deg, var(--dark-primary), #000);
+
+    &::before {
+      background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
+    }
+  }
+
+  // Light variant (for light theme)
+  &.light {
+    background-color: var(--white);
+    border-top-color: rgba(200, 200, 210, 0.2);
+
+    &::before {
+      background: linear-gradient(90deg, transparent, var(--accent-purple), transparent);
+      opacity: 0.8;
+    }
+
+    &__brand .footer-logo {
+      color: var(--dark-primary);
+
+      .text-accent {
+        color: var(--accent-purple);
+      }
+    }
+
+    .footer-link,
+    .footer-tagline {
+      color: var(--gray-700);
+    }
+
+    .social-link {
+      background: rgba(139, 92, 246, 0.08);
+      border-color: rgba(139, 92, 246, 0.15);
+      color: var(--dark-primary);
+
+      &:hover {
+        background: var(--accent-purple);
+        color: var(--white);
+      }
+    }
+
+    &__copyright p {
+      color: var(--gray-600);
+    }
+  }
+}
+
+/* -----------------------------------------
+   8. Footer Brand Enhancements
+   ----------------------------------------- */
+
+.footer {
+  &__brand {
+    // With animation
+    &.animated {
+      animation: fadeInBrand 0.8s ease-out;
+    }
+
+    // Extended brand info
+    .brand-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    // Logo with icon
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      justify-content: center;
+
+      i {
+        font-size: 1.5rem;
+        transition: transform 0.3s ease;
+      }
+
+      &:hover i {
+        transform: rotate(10deg);
+      }
+    }
+
+    // Description
+    .description {
+      font-size: 0.9rem;
+      color: var(--gray-400);
+      line-height: 1.6;
+      max-width: 300px;
+    }
+  }
+}
+
+/* -----------------------------------------
+   9. Footer Navigation Variants
+   ----------------------------------------- */
+
+.footer {
+  &__nav {
+    // Vertical layout
+    &.vertical {
+      flex-direction: column;
+      gap: 1rem;
+
+      .footer-link {
+        text-align: left;
+      }
+    }
+
+    // Grid layout
+    &.grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    // Enhanced links
+    .footer-link {
+      // With icon
+      &.with-icon {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        justify-content: center;
+
+        i {
+          font-size: 1rem;
+        }
+      }
+
+      // Animated icon
+      &.animated-icon i {
+        transition: transform 0.3s ease;
+      }
+
+      &:hover.animated-icon i {
+        transform: translateX(3px);
+      }
+
+      // Grouped
+      &.group-title {
+        font-weight: 700;
+        color: var(--white);
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.05em;
+        opacity: 0.7;
+
+        &::after {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   10. Social Icons Variants
+   ----------------------------------------- */
+
+.footer {
+  &__social {
+    // Vertical layout
+    &.vertical {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    // Grid layout
+    &.grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      width: fit-content;
+    }
+
+    // Large variant
+    &.large {
+      .social-link {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+
+        &:hover {
+          transform: translateY(-8px) scale(1.15);
+        }
+      }
+    }
+
+    // Small variant
+    &.small {
+      .social-link {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+      }
+    }
+
+    // Enhanced link
+    .social-link {
+      // Colored variant
+      &.facebook {
+        &:hover {
+          background: #1f2937;
+          border-color: #1f2937;
+          box-shadow: 0 0 15px rgba(31, 41, 55, 0.5);
+        }
+      }
+
+      &.twitter {
+        &:hover {
+          background: #1da1f2;
+          border-color: #1da1f2;
+          box-shadow: 0 0 15px rgba(29, 161, 242, 0.5);
+        }
+      }
+
+      &.github {
+        &:hover {
+          background: #ffffff;
+          border-color: #ffffff;
+          color: #000;
+          box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+      }
+
+      &.linkedin {
+        &:hover {
+          background: #0a66c2;
+          border-color: #0a66c2;
+          box-shadow: 0 0 15px rgba(10, 102, 194, 0.5);
+        }
+      }
+
+      &.instagram {
+        &:hover {
+          background: #e4405f;
+          border-color: #e4405f;
+          box-shadow: 0 0 15px rgba(228, 64, 95, 0.5);
+        }
+      }
+
+      // Animated variant
+      &.animated {
+        animation: floatSocial 3s ease-in-out infinite;
+
+        &:nth-child(1) {
+          animation-delay: 0s;
+        }
+        &:nth-child(2) {
+          animation-delay: 0.2s;
+        }
+        &:nth-child(3) {
+          animation-delay: 0.4s;
+        }
+        &:nth-child(4) {
+          animation-delay: 0.6s;
+        }
+        &:nth-child(5) {
+          animation-delay: 0.8s;
+        }
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   11. Footer Links & Text Variants
+   ----------------------------------------- */
+
+.footer {
+  .footer-tagline {
+    // With badge
+    &.with-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      justify-content: center;
+
+      .badge {
+        background: var(--accent-purple);
+        color: var(--white);
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+    }
+
+    // Animated
+    &.animated {
+      animation: fadeInTagline 0.8s ease-out 0.2s backwards;
+    }
+  }
+
+  // Footer section wrapper
+  .footer-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+
+    h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      opacity: 0.8;
+    }
+
+    p {
+      font-size: 0.95rem;
+      color: var(--gray-400);
+      line-height: 1.6;
+    }
+  }
+}
+
+/* -----------------------------------------
+   12. Footer Animations
+   ----------------------------------------- */
+
+@keyframes fadeInBrand {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInTagline {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes floatSocial {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes slideUpFooter {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLink {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* -----------------------------------------
+   13. Animated Footer Content
+   ----------------------------------------- */
+
+.footer {
+  &__brand {
+    animation: slideUpFooter 0.6s ease-out;
+  }
+
+  &__nav {
+    animation: slideUpFooter 0.6s ease-out 0.1s backwards;
+  }
+
+  &__social {
+    animation: slideUpFooter 0.6s ease-out 0.2s backwards;
+  }
+
+  &__copyright {
+    animation: slideUpFooter 0.6s ease-out 0.3s backwards;
+  }
+
+  .footer-link {
+    &.animate-in {
+      opacity: 0;
+      animation: slideInLink 0.4s ease-out forwards;
+
+      &:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      &:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      &:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      &:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+      &:nth-child(5) {
+        animation-delay: 0.5s;
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   14. Accessibility Improvements
+   ----------------------------------------- */
+
+.footer {
+  // High contrast mode
+  @media (prefers-contrast: more) {
+    border-top-width: 2px;
+
+    &__nav .footer-link,
+    &__copyright p {
+      font-weight: 700;
+    }
+
+    .social-link {
+      border-width: 2px;
+    }
+  }
+
+  // Reduced motion
+  @media (prefers-reduced-motion: reduce) {
+    &__brand,
+    &__nav,
+    &__social,
+    &__copyright,
+    .footer-link {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    .social-link {
+      animation: none;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  // Focus states
+  .footer-link:focus-visible,
+  .social-link:focus-visible {
+    outline: 2px solid var(--accent-purple);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+}
+
+/* -----------------------------------------
+   15. Footer Layout Variants
+   ----------------------------------------- */
+
+.footer {
+  // Centered layout
+  &.centered {
+    text-align: center;
+
+    .container {
+      gap: 2.5rem;
+    }
+
+    &__nav {
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    &__social {
+      justify-content: center;
+    }
+  }
+
+  // Multi-column layout
+  &.multi-column {
+    .container {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 3rem;
+      text-align: left;
+      align-items: start;
+
+      @include tablet {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    &__brand {
+      text-align: left;
+      grid-column: 1;
+
+      @include tablet {
+        grid-column: auto;
+      }
+    }
+
+    &__nav {
+      grid-column: 2;
+      flex-direction: column;
+      gap: 0.75rem;
+
+      @include tablet {
+        grid-column: auto;
+      }
+    }
+
+    &__social {
+      grid-column: 3;
+      flex-direction: column;
+
+      @include tablet {
+        grid-column: auto;
+        flex-direction: row;
+        justify-content: center;
+      }
+    }
+
+    &__copyright {
+      grid-column: 1 / -1;
+      text-align: center;
+    }
+  }
+}
+
+/* -----------------------------------------
+   16. Responsive Adjustments
+   ----------------------------------------- */
+
+@media (max-width: 1024px) {
+  .footer {
+    padding: 3rem 0 1.5rem;
+
+    .container {
+      gap: 2.5rem;
+    }
+
+    &__brand .footer-logo {
+      font-size: 1.75rem;
+    }
+
+    &__nav {
+      flex-wrap: wrap;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 2.5rem 0 1.25rem;
+
+    .container {
+      gap: 2rem;
+    }
+
+    &__nav {
+      gap: 1.5rem;
+      max-width: 100%;
+    }
+
+    &__social {
+      gap: 1.25rem;
+    }
+
+    .footer-link {
+      font-size: 0.95rem;
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+      font-size: 1.1rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 2rem 0 1rem;
+
+    &__brand .footer-logo {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-tagline {
+      font-size: 0.9rem;
+    }
+
+    &__nav {
+      gap: 1rem;
+      font-size: 0.9rem;
+    }
+
+    &__social {
+      gap: 1rem;
+
+      .social-link {
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+      }
+    }
+
+    &__copyright {
+      padding-top: 1rem;
+      gap: 0.25rem;
+
+      p {
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   17. Dark Mode Specific
+   ----------------------------------------- */
+
+[data-theme='dark'] .footer {
+  background-color: var(--dark-primary);
+  border-top-color: rgba(255, 255, 255, 0.05);
+
+  &__brand .footer-logo {
+    color: var(--white);
+  }
+
+  .footer-link,
+  .footer-tagline {
+    color: var(--gray-400);
+  }
+}
+
+/* -----------------------------------------
+   18. Print Styles
+   ----------------------------------------- */
+
+@media print {
+  .footer {
+    page-break-inside: avoid;
+    background: white;
+    color: black;
+    border: 1px solid #ccc;
+
+    &::before {
+      display: none;
+    }
+
+    &__brand .footer-logo {
+      color: black;
+
+      .text-accent {
+        color: var(--accent-purple);
+      }
+    }
+
+    .footer-link {
+      color: black;
+      text-decoration: none;
+
+      &::after {
+        display: none;
+      }
+    }
+
+    .social-link {
+      display: none;
+    }
+
+    &__copyright {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #ccc;
+
+      p {
+        color: #666;
+      }
+    }
+  }
+}

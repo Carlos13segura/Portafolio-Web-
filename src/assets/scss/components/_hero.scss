@@ -1,0 +1,1275 @@
+/* =========================================
+   HERO SECTION SCSS
+   ========================================= */
+
+/* -----------------------------------------
+   1. Imports & Config
+   ----------------------------------------- */
+// Variables and Mixins imported globally
+
+/* -----------------------------------------
+   2. Base Layout
+   ----------------------------------------- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: var(--dark-primary);
+  perspective: 1000px; // For 3D elements
+  z-index: 1;
+
+  @include mobile {
+    min-height: 100dvh;
+  }
+
+  /* -----------------------------------------
+     3. Animated Background Layer
+     ----------------------------------------- */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(79, 70, 229, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(10, 12, 27, 0) 0%, var(--dark-primary) 100%);
+    z-index: -2;
+    animation: pulseBackground 10s ease-in-out infinite alternate;
+  }
+
+  // Grid/Tech Pattern Overlay
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+    -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+    z-index: -1;
+    opacity: 0.5;
+  }
+
+  /* -----------------------------------------
+     4. Container & Grid
+     ----------------------------------------- */
+  .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    padding: 0 var(--spacing-xl);
+    max-width: 1400px;
+    margin: 0 auto;
+
+    @include lg-only {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: 3rem;
+      padding-top: 80px;
+    }
+
+    @include md-only {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: 2.5rem;
+      padding: var(--spacing-lg);
+      padding-top: 100px;
+    }
+
+    @include sm-only {
+      gap: 2rem;
+      padding: var(--spacing-md);
+      padding-top: 80px;
+    }
+
+    @include xs-only {
+      gap: 1.5rem;
+      padding: var(--spacing-sm);
+      padding-top: 70px;
+    }
+  }
+
+  /* -----------------------------------------
+     5. Content Column (Left/Top)
+     ----------------------------------------- */
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @include tablet {
+      align-items: center;
+    }
+
+    /* -----------------------------------------
+       5.1 Badges & Labels
+       ----------------------------------------- */
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: clamp(0.35rem, 2vw, 0.5rem) clamp(0.75rem, 2vw, 1rem);
+      border-radius: 999px;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      color: var(--accent-purple-light);
+      font-size: clamp(0.75rem, 2vw, 0.875rem);
+      font-weight: 600;
+      margin-bottom: clamp(1rem, 3vw, 1.5rem);
+      width: fit-content;
+      transform-origin: left;
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out 0.2s forwards;
+
+      @include tablet {
+        transform-origin: center;
+        justify-content: center;
+      }
+
+      @include xs-only {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.75rem;
+      }
+
+      .dot {
+        width: clamp(6px, 1vw, 8px);
+        height: clamp(6px, 1vw, 8px);
+        background: var(--accent-purple);
+        border-radius: 50%;
+        box-shadow: 0 0 10px var(--accent-purple);
+        animation: pulse 2s infinite;
+        flex-shrink: 0;
+      }
+    }
+
+    /* -----------------------------------------
+       5.2 Headings
+       ----------------------------------------- */
+    .title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.75rem, 8vw, 4.5rem);
+      line-height: 1.1;
+      font-weight: 800;
+      margin-bottom: clamp(1rem, 3vw, 1.5rem);
+      color: var(--white);
+      letter-spacing: -0.02em;
+
+      @include lg-only {
+        font-size: clamp(1.5rem, 7vw, 3rem);
+      }
+
+      @include md-only {
+        font-size: clamp(1.5rem, 6vw, 2.5rem);
+      }
+
+      @include sm-only {
+        font-size: clamp(1.25rem, 5vw, 2rem);
+      }
+
+      @include xs-only {
+        font-size: clamp(1.125rem, 4.5vw, 1.75rem);
+        margin-bottom: 0.75rem;
+      }
+
+      // Animated reveal for text lines
+      span {
+        display: block;
+        opacity: 0;
+        animation: slideInRight 0.8s ease-out forwards;
+
+        &:nth-child(1) {
+          animation-delay: 0.4s;
+        }
+        &:nth-child(2) {
+          animation-delay: 0.6s;
+        }
+      }
+
+      // Highlighted Text (Name)
+      .text-highlight {
+        color: transparent;
+        -webkit-text-stroke: clamp(1px, 0.5vw, 2px) var(--accent-blue-light);
+        position: relative;
+        display: inline-block;
+
+        &::after {
+          content: attr(data-text);
+          position: absolute;
+          left: 0;
+          top: 0;
+          color: var(--accent-blue-light);
+          width: 0%;
+          overflow: hidden;
+          transition: width 1s ease-in-out;
+          border-right: clamp(2px, 0.5vw, 4px) solid var(--accent-purple);
+          white-space: nowrap;
+          animation: typeWriter 2s steps(20) 1s forwards;
+        }
+      }
+    }
+
+    /* -----------------------------------------
+       5.3 Subtitle / Bio
+       ----------------------------------------- */
+    .subtitle {
+      font-size: clamp(0.875rem, 2.5vw, 1.25rem);
+      color: var(--gray-400);
+      margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+      max-width: 540px;
+      line-height: 1.6;
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out 0.8s forwards;
+
+      @include tablet {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      @include xs-only {
+        font-size: 0.875rem;
+        margin-bottom: 1.5rem;
+      }
+    }
+
+    /* -----------------------------------------
+       5.4 CTA Buttons
+       ----------------------------------------- */
+    .cta-group {
+      display: flex;
+      gap: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out 1s forwards;
+
+      @include mobile {
+        flex-direction: column;
+        width: 100%;
+        gap: 1rem;
+      }
+
+      .btn {
+        position: relative;
+        padding: 1rem 2.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        border-radius: 8px;
+        text-decoration: none;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+
+        // Button Primary
+        &--primary {
+          background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-dark));
+          color: var(--white);
+          box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+
+          &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+          }
+
+          &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.6);
+
+            &::before {
+              left: 100%;
+            }
+          }
+        }
+
+        // Button Outline
+        &--outline {
+          background: transparent;
+          color: var(--white);
+          border: 1px solid var(--gray-500);
+
+          &:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+            background: rgba(79, 70, 229, 0.05);
+            transform: translateY(-3px);
+          }
+        }
+      }
+    }
+  }
+
+  /* -----------------------------------------
+     6. Visual Column (Right/Bottom)
+     ----------------------------------------- */
+  &__visual {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+
+    // Initial Animation
+    opacity: 0;
+    transform: scale(0.8);
+    animation: zoomIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s forwards;
+
+    /* -----------------------------------------
+       6.1 Profile Image Container
+       ----------------------------------------- */
+    .image-wrapper {
+      position: relative;
+      width: 400px;
+      height: 400px;
+      z-index: 2;
+
+      @include tablet {
+        width: 320px;
+        height: 320px;
+      }
+
+      @include mobile {
+        width: 280px;
+        height: 280px;
+      }
+
+      // The Image itself
+      .hero-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; // Blob shape
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        animation: morphShape 8s ease-in-out infinite;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+        z-index: 10;
+        filter: grayscale(20%) contrast(110%);
+        transition: filter 0.5s ease;
+
+        &:hover {
+          filter: grayscale(0%) contrast(100%);
+        }
+      }
+
+      /* -----------------------------------------
+         6.2 Decorative Elements behind image
+         ----------------------------------------- */
+      &::before {
+        content: '';
+        position: absolute;
+        top: -20px;
+        left: -20px;
+        right: -20px;
+        bottom: -20px;
+        border: 1px dashed var(--accent-purple);
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        animation: morphShape 8s ease-in-out infinite reverse;
+        opacity: 0.3;
+        z-index: 1;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+        background: var(--accent-blue);
+        border-radius: 50%;
+        filter: blur(60px);
+        opacity: 0.4;
+        z-index: -1;
+        animation: pulseGlow 4s infinite alternate;
+      }
+
+      // Floating Tech Icons (Orbiting)
+      .floating-icon {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        background: rgba(20, 24, 41, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(5px);
+        border-radius: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        color: var(--white);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        z-index: 20;
+
+        // Custom positions for icons
+        &.icon-1 {
+          top: 10%;
+          right: 0;
+          animation: float 6s ease-in-out infinite;
+        }
+        &.icon-2 {
+          bottom: 15%;
+          left: -10px;
+          animation: float 6s ease-in-out infinite 2s;
+        }
+        &.icon-3 {
+          bottom: -10px;
+          right: 20%;
+          animation: float 6s ease-in-out infinite 4s;
+        }
+
+        i {
+          background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+        }
+      }
+    }
+  }
+
+  /* -----------------------------------------
+     7. Scroll Indicator
+     ----------------------------------------- */
+  .scroll-down {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    z-index: 10;
+    opacity: 0;
+    animation: fadeIn 1s ease-out 2s forwards;
+
+    span {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--gray-400);
+    }
+
+    .mouse {
+      width: 26px;
+      height: 40px;
+      border: 2px solid var(--gray-400);
+      border-radius: 20px;
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 6px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 6px;
+        background: var(--accent-purple);
+        border-radius: 2px;
+        animation: scrollWheel 2s infinite;
+      }
+    }
+
+    &:hover {
+      span {
+        color: var(--accent-purple);
+      }
+      .mouse {
+        border-color: var(--accent-purple);
+      }
+    }
+  }
+}
+
+/* =========================================
+   ANIMATIONS
+   ========================================= */
+
+@keyframes pulseBackground {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+@keyframes morphShape {
+  0% {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  }
+  25% {
+    border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
+  }
+  50% {
+    border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
+  }
+  75% {
+    border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%;
+  }
+  100% {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  }
+}
+
+@keyframes pulseGlow {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0.2;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes typeWriter {
+  to {
+    width: 100%;
+    border-color: transparent;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scrollWheel {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(15px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(139, 92, 246, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0);
+  }
+}
+
+/* =========================================
+   ADVANCED HERO ANIMATIONS & EFFECTS
+   ========================================= */
+
+/* -----------------------------------------
+   8. Extended Animations
+   ----------------------------------------- */
+
+@keyframes fadeUpDelay {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rotateIn {
+  from {
+    opacity: 0;
+    transform: rotate(-10deg) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    text-shadow:
+      0 0 5px rgba(139, 92, 246, 0.3),
+      0 0 10px rgba(139, 92, 246, 0.1);
+  }
+  50% {
+    text-shadow:
+      0 0 10px rgba(139, 92, 246, 0.6),
+      0 0 20px rgba(139, 92, 246, 0.3);
+  }
+}
+
+@keyframes colorShift {
+  0% {
+    color: var(--accent-purple-light);
+  }
+  50% {
+    color: var(--accent-blue-light);
+  }
+  100% {
+    color: var(--accent-purple-light);
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* -----------------------------------------
+   9. Hero Title Variants
+   ----------------------------------------- */
+
+.hero__content {
+  .title {
+    // Animated Typewriter Effect
+    &.typewriter {
+      animation: typeWriter 3s steps(30) forwards;
+      border-right: 2px solid var(--accent-purple);
+      white-space: nowrap;
+    }
+
+    // Gradient Text Variant
+    &.gradient-text {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: colorShift 4s ease-in-out infinite;
+    }
+
+    // Glowing Text Variant
+    &.glow-text {
+      animation: glow 3s ease-in-out infinite;
+    }
+
+    // Large Variant
+    &.large {
+      font-size: clamp(2rem, 10vw, 5rem);
+    }
+
+    // Small Variant
+    &.small {
+      font-size: clamp(1rem, 4vw, 2rem);
+    }
+  }
+}
+
+/* -----------------------------------------
+   10. Subtitle Variants & Effects
+   ----------------------------------------- */
+
+.hero__content .subtitle {
+  // Animated reveal line by line
+  &.animated-lines {
+    overflow: hidden;
+
+    span {
+      display: block;
+      animation: slideInLeft 0.8s ease-out forwards;
+
+      &:nth-child(1) {
+        animation-delay: 0.2s;
+      }
+      &:nth-child(2) {
+        animation-delay: 0.4s;
+      }
+      &:nth-child(3) {
+        animation-delay: 0.6s;
+      }
+    }
+  }
+
+  // Shimmer effect
+  &.shimmer {
+    background: linear-gradient(90deg, var(--gray-400), var(--white), var(--gray-400));
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 3s infinite;
+  }
+}
+
+/* -----------------------------------------
+   11. CTA Button Variants
+   ----------------------------------------- */
+
+.hero__content .cta-group {
+  .btn {
+    // Button with Icon Variant
+    &--icon-left {
+      flex-direction: row-reverse;
+
+      i {
+        margin-right: 0.5rem;
+        margin-left: 0;
+      }
+    }
+
+    // Gradient Button
+    &--gradient {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+      position: relative;
+      z-index: 1;
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+        border-radius: inherit;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: -1;
+      }
+
+      &:hover::after {
+        opacity: 1;
+      }
+    }
+
+    // Bordered Button Variant
+    &--bordered {
+      background: transparent;
+      border: 2px solid var(--accent-purple);
+      color: var(--accent-purple);
+
+      &:hover {
+        background: var(--accent-purple);
+        color: var(--white);
+      }
+    }
+
+    // Soft Button Variant
+    &--soft {
+      background: rgba(139, 92, 246, 0.2);
+      color: var(--accent-purple-light);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+
+      &:hover {
+        background: rgba(139, 92, 246, 0.3);
+        border-color: rgba(139, 92, 246, 0.5);
+      }
+    }
+
+    // Loading State
+    &.is-loading {
+      pointer-events: none;
+      opacity: 0.7;
+
+      &::after {
+        content: '';
+        display: inline-block;
+        width: 1rem;
+        height: 1rem;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-top-color: var(--white);
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+      }
+    }
+
+    // Disabled State
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+
+      &:hover {
+        transform: none;
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   12. Badge Variants
+   ----------------------------------------- */
+
+.hero__content .hero-badge {
+  // Animated Badge
+  &.animated {
+    animation: slideInDown 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  }
+
+  // Badge with Icon
+  &.with-icon {
+    padding-right: 1.5rem;
+
+    i {
+      margin-left: 0.5rem;
+      animation: spin 2s linear infinite;
+    }
+  }
+
+  // Pulsing Badge
+  &.pulsing {
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  // Glowing Badge
+  &.glowing {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+    animation: glow 3s ease-in-out infinite;
+  }
+}
+
+/* -----------------------------------------
+   13. Visual Column Enhancements
+   ----------------------------------------- */
+
+.hero__visual {
+  .image-wrapper {
+    // Parallax Effect
+    &.parallax {
+      transform: translateZ(0);
+      perspective: 1000px;
+    }
+
+    // Enhanced Image Filters
+    .hero-image {
+      &.saturated {
+        filter: grayscale(0%) contrast(120%) brightness(110%);
+      }
+
+      &.cool-tone {
+        filter: grayscale(20%) contrast(110%) hue-rotate(10deg);
+      }
+
+      &.warm-tone {
+        filter: grayscale(20%) contrast(110%) hue-rotate(-10deg);
+      }
+
+      &.sepia {
+        filter: sepia(0.3) grayscale(20%);
+      }
+    }
+
+    // Border Glow Effect
+    &.border-glow::before {
+      box-shadow: 0 0 30px rgba(139, 92, 246, 0.6);
+    }
+
+    // Rotating Border
+    &.rotating-border::before {
+      animation: rotateBorder 8s linear infinite;
+    }
+  }
+
+  .floating-icon {
+    // Rotate variant
+    &.rotate {
+      animation:
+        float 6s ease-in-out infinite,
+        rotateIcon 3s linear infinite;
+    }
+
+    // Pulse variant
+    &.pulse {
+      animation:
+        float 6s ease-in-out infinite,
+        pulseIcon 2s ease-in-out infinite;
+    }
+
+    // Bounce variant
+    &.bounce {
+      animation:
+        float 6s ease-in-out infinite,
+        bounce 2s ease-in-out infinite;
+    }
+
+    // Enhanced hover state
+    &:hover {
+      transform: scale(1.2);
+      box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+    }
+  }
+}
+
+/* -----------------------------------------
+   14. Scroll Indicator Variants
+   ----------------------------------------- */
+
+.hero .scroll-down {
+  // Animated variant
+  &.animated {
+    animation:
+      fadeIn 1s ease-out 2s forwards,
+      bounce 2s ease-in-out 3s infinite;
+  }
+
+  // Arrow variant
+  &.arrow {
+    .mouse {
+      display: none;
+    }
+
+    i {
+      font-size: 1.5rem;
+      animation: bounce 2s ease-in-out infinite;
+    }
+  }
+
+  // Enhanced hover with glow
+  &:hover {
+    .mouse {
+      box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
+    }
+  }
+}
+
+/* -----------------------------------------
+   15. Background Animation Enhancement
+   ----------------------------------------- */
+
+.hero::before {
+  // Alternative pulsing
+  &.pulse-fast {
+    animation: pulseBackground 5s ease-in-out infinite alternate;
+  }
+
+  &.smooth-wave {
+    animation: smoothWave 8s ease-in-out infinite;
+  }
+}
+
+/* -----------------------------------------
+   16. Accessibility & Performance
+   ----------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero {
+    &__content,
+    &__visual {
+      animation: none !important;
+      opacity: 1;
+      transform: none !important;
+    }
+
+    .title span,
+    .subtitle {
+      animation: none !important;
+    }
+
+    .hero-badge,
+    .cta-group,
+    .scroll-down {
+      animation: none !important;
+      opacity: 1;
+    }
+
+    .image-wrapper .hero-image,
+    .floating-icon {
+      animation: none !important;
+    }
+  }
+}
+
+/* -----------------------------------------
+   17. High Contrast Mode
+   ----------------------------------------- */
+
+@media (prefers-contrast: more) {
+  .hero {
+    .title {
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-badge {
+      border-width: 2px;
+    }
+
+    .btn {
+      border-width: 2px;
+      font-weight: 700;
+    }
+
+    .image-wrapper .hero-image {
+      filter: grayscale(0%) contrast(130%);
+    }
+  }
+}
+
+/* -----------------------------------------
+   18. Dark Mode Variants
+   ----------------------------------------- */
+
+[data-theme='dark'] .hero {
+  &__content .title {
+    color: var(--white);
+  }
+
+  &__visual .image-wrapper {
+    &::after {
+      background: var(--accent-purple);
+    }
+  }
+}
+
+[data-theme='light'] .hero {
+  background-color: var(--white);
+
+  &::before {
+    background: radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.05) 0%, transparent 40%);
+  }
+
+  &__content {
+    .title {
+      color: var(--dark-primary);
+    }
+
+    .subtitle {
+      color: var(--gray-600);
+    }
+
+    .hero-badge {
+      background: rgba(139, 92, 246, 0.1);
+      color: var(--accent-purple);
+    }
+  }
+}
+
+/* -----------------------------------------
+   19. Additional Keyframes
+   ----------------------------------------- */
+
+@keyframes rotateBorder {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotateIcon {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulseIcon {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes smoothWave {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* -----------------------------------------
+   20. Responsive Hero Adjustments
+   ----------------------------------------- */
+
+@media (max-width: 1200px) {
+  .hero {
+    &__content .title {
+      animation-delay: 0.3s;
+    }
+
+    &__visual {
+      .image-wrapper {
+        animation-delay: 0.4s;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    .scroll-down {
+      bottom: 1rem;
+    }
+
+    &__content .cta-group {
+      .btn {
+        font-size: 0.9rem;
+        padding: 0.9rem 2rem;
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   21. Print Styles
+   ----------------------------------------- */
+
+@media print {
+  .hero {
+    min-height: 600px;
+
+    &::before,
+    &::after {
+      display: none;
+    }
+
+    &__content {
+      .title span {
+        animation: none;
+      }
+
+      .cta-group .btn::before {
+        display: none;
+      }
+    }
+
+    &__visual {
+      animation: none;
+      opacity: 1;
+
+      .floating-icon {
+        display: none;
+      }
+
+      .image-wrapper::before,
+      .image-wrapper::after {
+        display: none;
+      }
+    }
+
+    .scroll-down {
+      display: none;
+    }
+  }
+}

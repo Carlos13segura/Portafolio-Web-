@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap');
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-primary;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  overflow-wrap: break-word;
+}
+
+h1 {
+  font-size: clamp(1.75rem, 8vw, 3.5rem);
+  letter-spacing: -0.02em;
+
+  @include xs-only {
+    font-size: 1.75rem;
+    line-height: 1.3;
+  }
+
+  @include sm-only {
+    font-size: 2rem;
+  }
+
+  @include md-only {
+    font-size: 2.5rem;
+  }
+}
+
+h2 {
+  font-size: clamp(1.5rem, 6vw, 2.5rem);
+  letter-spacing: -0.01em;
+
+  @include xs-only {
+    font-size: 1.5rem;
+  }
+
+  @include sm-only {
+    font-size: 1.75rem;
+  }
+
+  @include md-only {
+    font-size: 2rem;
+  }
+}
+
+h3 {
+  font-size: clamp(1.25rem, 5vw, 2rem);
+
+  @include xs-only {
+    font-size: 1.25rem;
+  }
+}
+
+h4 {
+  font-size: clamp(1.125rem, 4vw, 1.5rem);
+
+  @include xs-only {
+    font-size: 1rem;
+  }
+}
+
+h5,
+h6 {
+  font-size: clamp(1rem, 3vw, 1.25rem);
+}
+
+p {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  font-size: clamp(0.875rem, 2vw, 1rem);
+
+  @include xs-only {
+    font-size: 0.875rem;
+    margin-bottom: 0.75rem;
+  }
+}
+
+small {
+  font-size: 0.875rem;
+
+  @include xs-only {
+    font-size: 0.8rem;
+  }
+}
+
+// Lists responsive sizing
+ul,
+ol {
+  @include xs-only {
+    margin-left: 1rem;
+  }
+
+  @include md-up {
+    margin-left: 1.5rem;
+  }
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+// Code blocks responsive
+code,
+pre {
+  font-size: 0.875rem;
+
+  @include xs-only {
+    font-size: 0.75rem;
+    overflow-x: auto;
+  }
+}
+
+.text-accent {
+  color: $color-accent;
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, $color-accent, $color-accent-secondary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+// Responsive utility classes
+.text-sm {
+  font-size: clamp(0.75rem, 2vw, 0.875rem);
+}
+
+.text-base {
+  font-size: clamp(0.875rem, 2vw, 1rem);
+}
+
+.text-lg {
+  font-size: clamp(1rem, 3vw, 1.125rem);
+}
+
+.text-xl {
+  font-size: clamp(1.125rem, 4vw, 1.25rem);
+}

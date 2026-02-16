@@ -1,0 +1,653 @@
+/* =========================================
+   BUTTON COMPONENTS SCSS - EXTENDED
+   ========================================= */
+
+// Enhanced button system with advanced styling,
+// animations, states, and accessibility features
+
+/* -----------------------------------------
+   1. Base Button Styles
+   ----------------------------------------- */
+
+.btn {
+  position: relative;
+  padding: 1rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 8px;
+  text-decoration: none;
+  border: none;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  background-clip: padding-box;
+  outline: none;
+
+  // Focus state for accessibility
+  &:focus {
+    outline: 2px solid var(--accent-purple);
+    outline-offset: 2px;
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  // Responsive padding
+  @include sm-up {
+    padding: 0.875rem 2rem;
+    font-size: 0.95rem;
+  }
+
+  @include xs-only {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.85rem;
+  }
+
+  /* -----------------------------------------
+     2. Primary Button - Main Action
+     ----------------------------------------- */
+  &--primary {
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-dark));
+    color: var(--white);
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+
+    // Shimmer effect
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1;
+    }
+
+    // Glow effect on hover
+    &::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow:
+        0 8px 25px rgba(139, 92, 246, 0.6),
+        0 0 20px rgba(139, 92, 246, 0.3);
+
+      &::before {
+        left: 100%;
+      }
+
+      &::after {
+        opacity: 1;
+      }
+    }
+
+    &:active {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+    }
+
+    // Focus state
+    &:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.5);
+      outline-offset: 2px;
+    }
+  }
+
+  /* -----------------------------------------
+     3. Outline Button - Secondary Action
+     ----------------------------------------- */
+  &--outline {
+    background: transparent;
+    color: var(--accent-purple);
+    border: 2px solid var(--accent-purple);
+    box-shadow: inset 0 0 0 rgba(139, 92, 246, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    // Fill animation
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-dark));
+      z-index: -1;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &:hover {
+      color: var(--white);
+      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+      transform: translateY(-2px);
+      border-color: var(--accent-purple-dark);
+
+      &::before {
+        width: 100%;
+      }
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  /* -----------------------------------------
+     4. Secondary Button - Alternative
+     ----------------------------------------- */
+  &--secondary {
+    background: rgba(139, 92, 246, 0.1);
+    color: var(--accent-purple);
+    border: 1px solid var(--accent-purple);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    &:hover {
+      background: rgba(139, 92, 246, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+    }
+
+    &:active {
+      background: rgba(139, 92, 246, 0.15);
+    }
+  }
+
+  /* -----------------------------------------
+     5. Ghost Button - Minimal/Text Style
+     ----------------------------------------- */
+  &--ghost {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--text-secondary);
+    padding: 0.75rem 1.5rem;
+
+    &:hover {
+      color: var(--accent-purple);
+      border-color: var(--accent-purple);
+      background: rgba(139, 92, 246, 0.05);
+      transform: translateX(4px);
+    }
+
+    &:active {
+      transform: translateX(2px);
+    }
+  }
+
+  /* -----------------------------------------
+     6. Danger Button - Destructive Action
+     ----------------------------------------- */
+  &--danger {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: var(--white);
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(239, 68, 68, 0.6);
+    }
+
+    &:active {
+      transform: translateY(-1px);
+    }
+  }
+
+  /* -----------------------------------------
+     7. Success Button - Positive Action
+     ----------------------------------------- */
+  &--success {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: var(--white);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6);
+    }
+
+    &:active {
+      transform: translateY(-1px);
+    }
+  }
+
+  /* -----------------------------------------
+     8. Warning Button - Caution Action
+     ----------------------------------------- */
+  &--warning {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: var(--white);
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(245, 158, 11, 0.6);
+    }
+
+    &:active {
+      transform: translateY(-1px);
+    }
+  }
+
+  /* -----------------------------------------
+     9. Text Button - Link Style
+     ----------------------------------------- */
+  &--text {
+    background: transparent;
+    color: var(--accent-purple);
+    border: none;
+    padding: 0.5rem 1rem;
+    box-shadow: none;
+
+    &:hover {
+      color: var(--accent-blue);
+      background: rgba(139, 92, 246, 0.05);
+      transform: translateX(2px);
+    }
+  }
+
+  /* -----------------------------------------
+     10. Icon Button - Square, centered
+     ----------------------------------------- */
+  &--icon {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(139, 92, 246, 0.1);
+    color: var(--accent-purple);
+    border: 1px solid var(--accent-purple);
+
+    &:hover {
+      background: var(--accent-purple);
+      color: var(--white);
+      transform: scale(1.1);
+    }
+
+    i,
+    svg {
+      font-size: 1.25rem;
+    }
+  }
+
+  /* -----------------------------------------
+     11. Disabled State - All Variants
+     ----------------------------------------- */
+  &:disabled,
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+    pointer-events: none;
+
+    &:hover {
+      transform: none !important;
+      box-shadow: none !important;
+    }
+  }
+
+  /* -----------------------------------------
+     12. Icon Handling & Animation
+     ----------------------------------------- */
+  i,
+  svg {
+    font-size: 0.9em;
+    transition:
+      transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &:hover i {
+    transform: translateX(3px);
+  }
+
+  // Right-positioned icon animation
+  .icon-right {
+    margin-left: auto;
+
+    &:hover {
+      transform: translateX(3px);
+    }
+  }
+
+  // Left-positioned icon animation
+  .icon-left {
+    margin-right: auto;
+
+    &:hover {
+      transform: translateX(-3px);
+    }
+  }
+}
+
+/* -----------------------------------------
+   13. Button Groups & Container Styles
+   ----------------------------------------- */
+
+.btn-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+
+  // Vertical stacking on mobile
+  @include xs-only {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+
+    .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  @include sm-only {
+    flex-direction: column;
+    gap: 0.75rem;
+
+    .btn {
+      width: 100%;
+    }
+  }
+
+  // Compact group (no gaps)
+  &--compact {
+    gap: 0;
+
+    .btn {
+      border-radius: 0;
+      flex: 1;
+
+      &:first-child {
+        border-radius: 8px 0 0 8px;
+      }
+
+      &:last-child {
+        border-radius: 0 8px 8px 0;
+      }
+    }
+  }
+
+  // Stacked group
+  &--stacked {
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .btn {
+      width: 100%;
+    }
+  }
+
+  // Centered buttons
+  &--center {
+    justify-content: center;
+  }
+
+  // Right-aligned buttons
+  &--right {
+    justify-content: flex-end;
+  }
+
+  // Spread buttons evenly
+  &--spread {
+    justify-content: space-between;
+  }
+}
+
+/* -----------------------------------------
+   14. Button Size Variants
+   ----------------------------------------- */
+
+.btn--xs {
+  padding: 0.375rem 1rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.03em;
+}
+
+.btn--sm {
+  padding: 0.5rem 1.5rem;
+  font-size: 0.875rem;
+  text-transform: capitalize;
+}
+
+.btn--md {
+  padding: 0.875rem 2rem;
+  font-size: 0.95rem;
+}
+
+.btn--lg {
+  padding: 1.25rem 3rem;
+  font-size: 1.125rem;
+}
+
+.btn--xl {
+  padding: 1.5rem 3.5rem;
+  font-size: 1.25rem;
+}
+
+.btn--2xl {
+  padding: 1.75rem 4rem;
+  font-size: 1.375rem;
+}
+
+// Full width button
+.btn--block {
+  width: 100%;
+  display: flex;
+}
+
+// Fixed width button
+.btn--fixed {
+  width: 200px;
+
+  @include sm-down {
+    width: 100%;
+  }
+}
+
+/* -----------------------------------------
+   15. Loading State & Animations
+   ----------------------------------------- */
+
+.btn--loading {
+  color: transparent;
+  position: relative;
+  pointer-events: none;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: var(--white);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+}
+
+// Progress button (shows progress)
+.btn--progress {
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: attr(data-progress);
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: var(--progress, 0%);
+    background: rgba(255, 255, 255, 0.2);
+    transition: width 0.3s ease;
+    z-index: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* -----------------------------------------
+   16. Animations & Effects
+   ----------------------------------------- */
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-2deg);
+  }
+  75% {
+    transform: rotate(2deg);
+  }
+}
+
+// Pulse animation button
+.btn--pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+// Bounce animation button
+.btn--bounce {
+  animation: bounce 0.6s ease;
+}
+
+// Wiggle animation button
+.btn--wiggle {
+  animation: wiggle 0.5s ease;
+}
+
+// Shimmer animation button
+.btn--shimmer {
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* -----------------------------------------
+   17. Combined Modifiers & States
+   ----------------------------------------- */
+
+// Primary button with icon
+.btn--primary.btn--icon {
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-dark));
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+}
+
+// Outline button with large size
+.btn--outline.btn--lg {
+  letter-spacing: 0.08em;
+}
+
+// Text button with icon
+.btn--text.btn--icon {
+  background: transparent;
+  border: none;
+  width: auto;
+  padding: 0.5rem;
+}
+
+// Responsive button behavior
+@media (hover: none) and (pointer: coarse) {
+  .btn {
+    // Larger touch targets on touch devices
+    min-height: 48px;
+    min-width: 48px;
+
+    &:active {
+      opacity: 0.8;
+    }
+  }
+}
+
+/* -----------------------------------------
+   18. Print Styles
+   ----------------------------------------- */
+
+@media print {
+  .btn {
+    box-shadow: none !important;
+    background: none !important;
+    border: 1px solid #000 !important;
+    color: #000 !important;
+    text-decoration: underline;
+  }
+}

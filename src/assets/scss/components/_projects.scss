@@ -1,0 +1,899 @@
+/* =========================================
+   PROJECTS SECTION SCSS
+   ========================================= */
+
+/* -----------------------------------------
+   1. Imports & Config
+   ----------------------------------------- */
+// Variables and Mixins imported globally
+
+/* -----------------------------------------
+   2. Section Layout
+   ----------------------------------------- */
+.projects {
+  padding: var(--spacing-2xl) 0;
+  background-color: var(--dark-primary);
+  position: relative;
+
+  // Background Pattern
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+      linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+    background-size: 100px 100px;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 2;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 1rem;
+
+      .text-outline {
+        color: transparent;
+        -webkit-text-stroke: 1px var(--accent-purple-light);
+        position: relative;
+
+        &::before {
+          content: attr(data-text);
+          position: absolute;
+          left: 0;
+          top: 0;
+          color: var(--accent-purple);
+          width: 0;
+          overflow: hidden;
+          transition: width 0.5s ease;
+          border-right: 2px solid var(--accent-blue);
+        }
+
+        &:hover::before {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  /* -----------------------------------------
+     3. Projects Grid
+     ----------------------------------------- */
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); // 2 columns for larger items
+    gap: 3rem;
+
+    @include mobile {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  /* -----------------------------------------
+     4. Project Item (Card)
+     ----------------------------------------- */
+  .project-card {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--dark-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    height: 500px; // Fixed height for consistency
+    // Container for query usage if needed
+    container-type: inline-size;
+
+    @include tablet {
+      height: 400px;
+    }
+
+    @include mobile {
+      height: 350px;
+    }
+
+    // Hover State (Scale & Shadow)
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      border-color: rgba(139, 92, 246, 0.3);
+
+      // Image Zoom
+      .project-img {
+        transform: scale(1.1);
+        filter: grayscale(0%);
+      }
+
+      // Overlay Reveal
+      .project-overlay {
+        opacity: 1;
+
+        .overlay-content {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      // Hide default info to reduce clutter, or keep it?
+      // Let's keep the bottom info visible but dim it maybe?
+    }
+
+    /* -----------------------------------------
+       4.1 Image Area
+       ----------------------------------------- */
+    &__image-wrapper {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition:
+        transform 0.8s ease,
+        filter 0.5s ease;
+      filter: grayscale(20%);
+    }
+
+    /* -----------------------------------------
+       4.2 Overlay (Hover Reveal)
+       ----------------------------------------- */
+    .project-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 12, 27, 0.9); // Dark overlay
+      backdrop-filter: blur(5px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      padding: 2rem;
+      text-align: center;
+      z-index: 10;
+
+      .overlay-content {
+        transform: translateY(20px);
+        opacity: 0;
+        transition: all 0.4s ease 0.1s;
+      }
+
+      .btn-group {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+    }
+
+    /* -----------------------------------------
+       4.3 Visible Info (Bottom Bar)
+       ----------------------------------------- */
+    &__info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 1.5rem;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+      z-index: 5;
+      pointer-events: none; // Let clicks pass through to overlay if active
+      transition: opacity 0.3s ease;
+    }
+
+    .project-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.75rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+
+      .tag {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.75rem;
+        border-radius: 99px;
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--accent-blue-light);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(4px);
+      }
+    }
+  }
+
+  /* -----------------------------------------
+     5. Custom Button Styles for Project
+     ----------------------------------------- */
+  .btn-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.25rem;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--white);
+    background: transparent;
+    text-decoration: none;
+
+    &:hover {
+      background: var(--accent-purple);
+      border-color: var(--accent-purple);
+      transform: scale(1.1);
+    }
+  }
+}
+
+/* -----------------------------------------
+   6. Project Card Variants
+   ----------------------------------------- */
+
+.projects {
+  .project-card {
+    // Large variant
+    &.large {
+      grid-column: span 2;
+
+      @include mobile {
+        grid-column: span 1;
+      }
+
+      &__image-wrapper {
+        height: 600px;
+
+        @include tablet {
+          height: 500px;
+        }
+      }
+    }
+
+    // Featured variant
+    &.featured {
+      border-color: var(--accent-purple);
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+
+      .project-overlay {
+        background: rgba(139, 92, 246, 0.1);
+      }
+
+      .featured-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: var(--accent-purple);
+        color: var(--white);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        z-index: 15;
+      }
+    }
+
+    // Disabled state
+    &.disabled {
+      opacity: 0.6;
+      pointer-events: none;
+
+      &:hover {
+        transform: none;
+      }
+    }
+
+    // Coming soon state
+    &.coming-soon {
+      position: relative;
+
+      &::before {
+        content: 'Coming Soon';
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--white);
+        font-size: 1.5rem;
+        font-weight: 700;
+        z-index: 20;
+        border-radius: var(--radius-lg);
+      }
+    }
+
+    // Draft state
+    &.draft {
+      opacity: 0.7;
+
+      &::after {
+        content: 'DRAFT';
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        background: rgba(249, 115, 22, 0.9);
+        color: var(--white);
+        padding: 0.35rem 0.75rem;
+        border-radius: 4px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        z-index: 15;
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   7. Project Image Variants
+   ----------------------------------------- */
+
+.projects {
+  .project-img {
+    // Blur effect on hover
+    &.blur-hover {
+      &:hover {
+        filter: blur(3px) grayscale(30%);
+      }
+    }
+
+    // Zoom more aggressive
+    &.zoom-more {
+      &:hover {
+        transform: scale(1.15);
+      }
+    }
+
+    // Parallax effect
+    &.parallax {
+      transition: transform 0.8s cubic-bezier(0.33, 0.66, 0.66, 1);
+
+      &:hover {
+        transform: scale(1.08) translateY(-5px);
+      }
+    }
+
+    // Saturate on hover
+    &.saturate-hover {
+      filter: grayscale(50%) contrast(100%);
+
+      &:hover {
+        filter: grayscale(0%) contrast(110%);
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   8. Project Overlay Variants
+   ----------------------------------------- */
+
+.projects {
+  .project-overlay {
+    // Dark overlay variant
+    &.dark {
+      background: rgba(0, 0, 0, 0.95);
+    }
+
+    // Gradient overlay
+    &.gradient {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(79, 70, 229, 0.3));
+    }
+
+    // Blur overlay
+    &.blur {
+      background: rgba(10, 12, 27, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    // Animated overlay
+    &.animated {
+      animation: overlaySlide 0.4s ease-out;
+    }
+
+    .overlay-content {
+      // Title variant
+      h3 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: var(--white);
+      }
+
+      // Description variant
+      p {
+        font-size: 0.95rem;
+        color: var(--gray-300);
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+        max-width: 300px;
+      }
+
+      // Tag list
+      .tags {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+
+        .tag {
+          background: rgba(255, 255, 255, 0.1);
+          color: var(--accent-blue-light);
+          padding: 0.35rem 0.75rem;
+          border-radius: 20px;
+          font-size: 0.8rem;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   9. Project Info/Tags Variants
+   ----------------------------------------- */
+
+.projects {
+  .project-tags {
+    // Horizontal layout
+    &.horizontal {
+      flex-direction: row;
+    }
+
+    // Vertical layout
+    &.vertical {
+      flex-direction: column;
+    }
+
+    // Colored tags
+    .tag {
+      &.frontend {
+        background: rgba(59, 130, 246, 0.1);
+        color: #3b82f6;
+        border-color: rgba(59, 130, 246, 0.2);
+      }
+
+      &.backend {
+        background: rgba(34, 197, 94, 0.1);
+        color: #22c55e;
+        border-color: rgba(34, 197, 94, 0.2);
+      }
+
+      &.fullstack {
+        background: rgba(139, 92, 246, 0.1);
+        color: var(--accent-purple);
+        border-color: rgba(139, 92, 246, 0.2);
+      }
+
+      &.design {
+        background: rgba(236, 72, 153, 0.1);
+        color: #ec4899;
+        border-color: rgba(236, 72, 153, 0.2);
+      }
+
+      &.mobile {
+        background: rgba(139, 92, 246, 0.1);
+        color: var(--accent-blue);
+        border-color: rgba(79, 70, 229, 0.2);
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   10. Button Variants in Projects
+   ----------------------------------------- */
+
+.projects {
+  .btn-icon {
+    // Variants
+    &.preview {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: rgba(59, 130, 246, 0.3);
+      color: #3b82f6;
+
+      &:hover {
+        background: #3b82f6;
+        border-color: #3b82f6;
+      }
+    }
+
+    &.github {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.1);
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: var(--white);
+      }
+    }
+
+    &.link {
+      background: rgba(139, 92, 246, 0.1);
+      border-color: rgba(139, 92, 246, 0.2);
+      color: var(--accent-purple);
+
+      &:hover {
+        background: var(--accent-purple);
+        border-color: var(--accent-purple);
+      }
+    }
+
+    // Size variants
+    &.large {
+      width: 60px;
+      height: 60px;
+      font-size: 1.5rem;
+    }
+
+    &.small {
+      width: 40px;
+      height: 40px;
+      font-size: 1rem;
+    }
+  }
+}
+
+/* -----------------------------------------
+   11. Project Grid Layout Variants
+   ----------------------------------------- */
+
+.projects {
+  &__grid {
+    // Masonry variant
+    &.masonry {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+
+      .project-card {
+        &:nth-child(3n + 1) {
+          height: 500px;
+        }
+        &:nth-child(3n + 2) {
+          height: 450px;
+        }
+        &:nth-child(3n + 3) {
+          height: 480px;
+        }
+      }
+    }
+
+    // Dense variant
+    &.dense {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+
+      .project-card {
+        height: 300px;
+      }
+
+      @include tablet {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @include mobile {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    // Compact variant
+    &.compact {
+      gap: 1.5rem;
+
+      .project-card {
+        height: 350px;
+
+        &__info {
+          padding: 1rem;
+        }
+
+        .project-title {
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   12. Animations
+   ----------------------------------------- */
+
+@keyframes overlaySlide {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInProject {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleInProject {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* -----------------------------------------
+   13. Animated Project Cards
+   ----------------------------------------- */
+
+.projects {
+  .project-card {
+    &.animate-in {
+      opacity: 0;
+      animation: slideInProject 0.6s ease-out forwards;
+
+      &:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      &:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      &:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      &:nth-child(4) {
+        animation-delay: 0.1s;
+      }
+      &:nth-child(5) {
+        animation-delay: 0.2s;
+      }
+      &:nth-child(6) {
+        animation-delay: 0.3s;
+      }
+    }
+
+    &.scale-in {
+      animation: scaleInProject 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+
+      &:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      &:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      &:nth-child(3) {
+        animation-delay: 0.15s;
+      }
+      &:nth-child(4) {
+        animation-delay: 0.05s;
+      }
+      &:nth-child(5) {
+        animation-delay: 0.1s;
+      }
+      &:nth-child(6) {
+        animation-delay: 0.15s;
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   14. Accessibility Improvements
+   ----------------------------------------- */
+
+.projects {
+  // High contrast mode
+  @media (prefers-contrast: more) {
+    .project-card {
+      border-width: 2px;
+    }
+
+    .project-title {
+      font-weight: 900;
+    }
+
+    .btn-icon {
+      border-width: 2px;
+    }
+  }
+
+  // Reduced motion
+  @media (prefers-reduced-motion: reduce) {
+    .project-card {
+      animation: none !important;
+
+      &:hover {
+        transform: none;
+
+        .project-img {
+          transform: none;
+        }
+
+        .project-overlay {
+          opacity: 1;
+        }
+      }
+
+      .project-img {
+        transition: none;
+      }
+    }
+  }
+
+  // Focus states
+  .btn-icon:focus-visible {
+    outline: 2px solid var(--accent-purple);
+    outline-offset: 4px;
+    border-radius: 50%;
+  }
+
+  .project-card:focus-within {
+    outline: 2px solid var(--accent-purple);
+    outline-offset: -2px;
+  }
+}
+
+/* -----------------------------------------
+   15. Dark/Light Mode Variants
+   ----------------------------------------- */
+
+[data-theme='light'] .projects {
+  background-color: rgba(255, 255, 255, 0.95);
+
+  .section-header .section-title {
+    color: var(--dark-primary);
+  }
+
+  .project-card {
+    background: rgba(245, 245, 247, 1);
+    border-color: rgba(200, 200, 210, 0.3);
+
+    &__info {
+      background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(245, 245, 247, 0.8));
+    }
+
+    .project-title {
+      color: var(--dark-primary);
+    }
+  }
+}
+
+/* -----------------------------------------
+   16. Responsive Layout
+   ----------------------------------------- */
+
+@media (max-width: 1024px) {
+  .projects {
+    &__grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+
+      .project-card.large {
+        grid-column: span 1;
+      }
+    }
+
+    .section-header {
+      margin-bottom: 3rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .projects {
+    padding: var(--spacing-lg) 0;
+
+    &__grid {
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      height: 350px;
+
+      &__info {
+        padding: 1.25rem;
+      }
+
+      .project-title {
+        font-size: 1.5rem;
+      }
+    }
+
+    .section-header .section-title {
+      font-size: 2rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .projects {
+    .project-card {
+      height: 300px;
+
+      &__info {
+        padding: 1rem;
+      }
+
+      .project-title {
+        font-size: 1.25rem;
+      }
+
+      .project-tags .tag {
+        font-size: 0.7rem;
+      }
+    }
+
+    .btn-icon {
+      width: 45px;
+      height: 45px;
+      font-size: 1.1rem;
+    }
+  }
+}
+
+/* -----------------------------------------
+   17. Print Styles
+   ----------------------------------------- */
+
+@media print {
+  .projects {
+    .project-card {
+      page-break-inside: avoid;
+      height: auto;
+      box-shadow: none;
+      border: 1px solid #ccc;
+
+      &:hover {
+        transform: none;
+        box-shadow: none;
+      }
+
+      .project-overlay {
+        display: none;
+      }
+
+      &__image-wrapper {
+        height: auto;
+        max-height: 300px;
+      }
+    }
+
+    .featured-badge,
+    .btn-icon {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,837 @@
+/* =========================================
+   SKILLS SECTION SCSS
+   ========================================= */
+
+/* -----------------------------------------
+   1. Imports & Config
+   ----------------------------------------- */
+// Variables and Mixins imported globally
+
+/* -----------------------------------------
+   2. Section Container
+   ----------------------------------------- */
+.skills {
+  padding: var(--spacing-2xl) 0;
+  background-color: var(--dark-primary);
+  position: relative;
+  overflow: hidden;
+
+  // Diagonal Divider
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-purple), transparent);
+    opacity: 0.3;
+  }
+
+  .container {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* -----------------------------------------
+     3. Section Title
+     ----------------------------------------- */
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4rem;
+    position: relative;
+    display: inline-block;
+
+    .text-accent {
+      color: var(--accent-purple-light);
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 5px;
+        left: 0;
+        width: 100%;
+        height: 10px;
+        background: var(--accent-purple);
+        opacity: 0.3;
+        z-index: -1;
+        transform: skewX(-20deg);
+      }
+    }
+  }
+
+  /* -----------------------------------------
+     4. Track Wrapper (Marquee Container)
+     ----------------------------------------- */
+  &__track-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 2rem 0;
+
+    // Fade Masks
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 150px;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    &::before {
+      left: 0;
+      background: linear-gradient(to right, var(--dark-primary), transparent);
+    }
+
+    &::after {
+      right: 0;
+      background: linear-gradient(to left, var(--dark-primary), transparent);
+    }
+  }
+
+  /* -----------------------------------------
+     5. Animated Track
+     ----------------------------------------- */
+  &__track {
+    display: flex;
+    gap: 3rem;
+    width: max-content;
+    animation: scroll 40s linear infinite;
+    padding-left: 3rem; // Initial offset from gap
+
+    &:hover {
+      animation-play-state: paused;
+    }
+  }
+
+  /* -----------------------------------------
+     6. Skill Cards
+     ----------------------------------------- */
+  .skill-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 2rem 2.5rem;
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    min-width: 180px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+
+    // Glass effect on hover
+    &:hover {
+      transform: translateY(-10px) scale(1.05);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+
+      .skill-icon {
+        transform: scale(1.2) rotate(5deg);
+        filter: drop-shadow(0 0 10px currentColor);
+      }
+
+      .skill-name {
+        color: var(--white);
+        letter-spacing: 0.1em;
+      }
+
+      // Reveal accent border
+      &::before {
+        opacity: 1;
+      }
+    }
+
+    // Top Border Gradient
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .skill-icon {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      transition: all 0.4s ease;
+      // Color is set inline via Vue style binding, creates nice distinct branding
+    }
+
+    .skill-name {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--gray-400);
+      transition: all 0.3s ease;
+    }
+  }
+}
+
+/* -----------------------------------------
+   7. Animations
+   ----------------------------------------- */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  } // Assumes doubled content
+}
+
+/* -----------------------------------------
+   8. Responsive
+   ----------------------------------------- */
+@include mobile {
+  .skills {
+    .section-title {
+      font-size: 2.25rem;
+    }
+
+    &__track {
+      gap: 1.5rem;
+      animation-duration: 30s; // Faster on mobile
+    }
+
+    .skill-card {
+      min-width: 140px;
+      padding: 1.5rem;
+
+      .skill-icon {
+        font-size: 2.5rem;
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   9. Skill Card Variants
+   ----------------------------------------- */
+
+.skills {
+  .skill-card {
+    // Large variant
+    &.large {
+      min-width: 240px;
+      padding: 3rem 3.5rem;
+
+      .skill-icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+      }
+
+      .skill-name {
+        font-size: 1.125rem;
+      }
+    }
+
+    // Small variant
+    &.small {
+      min-width: 120px;
+      padding: 1.25rem;
+
+      .skill-icon {
+        font-size: 1.75rem;
+      }
+
+      .skill-name {
+        font-size: 0.875rem;
+      }
+    }
+
+    // Highlighted variant
+    &.featured {
+      border-color: var(--accent-purple);
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(79, 70, 229, 0.1));
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+    }
+
+    // Colored accent variants
+    &.accent-blue {
+      &::before {
+        background: linear-gradient(90deg, var(--accent-blue), transparent);
+      }
+
+      &:hover .skill-icon {
+        color: var(--accent-blue);
+      }
+    }
+
+    &.accent-cyan {
+      &::before {
+        background: linear-gradient(90deg, #06b6d4, transparent);
+      }
+
+      &:hover .skill-icon {
+        color: #06b6d4;
+      }
+    }
+
+    &.accent-green {
+      &::before {
+        background: linear-gradient(90deg, #10b981, transparent);
+      }
+
+      &:hover .skill-icon {
+        color: #10b981;
+      }
+    }
+
+    // Disabled state
+    &.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+
+      .skill-name {
+        text-decoration: line-through;
+      }
+    }
+
+    // Coming soon state
+    &.coming-soon {
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: var(--radius-lg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .coming-soon-label {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.8);
+        color: var(--white);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        z-index: 10;
+      }
+    }
+
+    // Progress variant
+    &.with-progress {
+      .skill-progress {
+        width: 100%;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+        margin-top: 0.75rem;
+        overflow: hidden;
+
+        .progress-bar {
+          height: 100%;
+          background: var(--accent-purple);
+          border-radius: 2px;
+          transition: width 0.3s ease;
+          width: 0;
+
+          &.expert {
+            width: 100%;
+          }
+
+          &.advanced {
+            width: 85%;
+          }
+
+          &.intermediate {
+            width: 70%;
+          }
+
+          &.beginner {
+            width: 50%;
+          }
+        }
+      }
+    }
+
+    // Badge variant
+    &.with-badge {
+      position: relative;
+
+      .skill-badge {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background: var(--accent-purple);
+        color: var(--white);
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: 700;
+        box-shadow: 0 4px 10px rgba(139, 92, 246, 0.4);
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   10. Skill Icon Variants
+   ----------------------------------------- */
+
+.skills {
+  .skill-icon {
+    // Animated background
+    &.animated-bg {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1rem;
+      border-radius: 12px;
+      animation: shimmerSkill 3s ease-in-out infinite;
+    }
+
+    // Gradient color
+    &.gradient {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    // Glow effect
+    &.glow {
+      filter: drop-shadow(0 0 10px currentColor);
+    }
+
+    // Rotate animation
+    &.rotate {
+      animation: rotateSkill 3s linear infinite;
+    }
+  }
+}
+
+/* -----------------------------------------
+   11. Skill Name Variants
+   ----------------------------------------- */
+
+.skills {
+  .skill-name {
+    // Uppercase
+    &.uppercase {
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    // With icon
+    &.with-icon::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: var(--accent-purple);
+      border-radius: 50%;
+      margin-right: 0.5rem;
+    }
+
+    // Animated underline
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-purple);
+      transition: width 0.3s ease;
+    }
+
+    &:hover::after {
+      width: 100%;
+    }
+  }
+}
+
+/* -----------------------------------------
+   12. Track Container Variants
+   ----------------------------------------- */
+
+.skills {
+  &__track-wrapper {
+    // Vertical variant
+    &.vertical {
+      flex-direction: column;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    // Pause on interaction
+    &.pause-on-hover:hover {
+      .skills__track {
+        animation-play-state: paused;
+      }
+    }
+
+    // Stop animation
+    &.stop-animation .skills__track {
+      animation: none;
+    }
+  }
+
+  &__track {
+    // Reverse animation
+    &.reverse {
+      animation: scrollReverse 40s linear infinite;
+    }
+
+    // Slower animation
+    &.slow {
+      animation: scroll 60s linear infinite;
+    }
+
+    // Faster animation
+    &.fast {
+      animation: scroll 25s linear infinite;
+    }
+
+    // Eased animation
+    &.eased {
+      animation: scrollEased 40s ease-in-out infinite;
+    }
+  }
+}
+
+/* -----------------------------------------
+   13. Animations
+   ----------------------------------------- */
+
+@keyframes shimmerSkill {
+  0%,
+  100% {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  50% {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+@keyframes rotateSkill {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scrollReverse {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(50%);
+  }
+}
+
+@keyframes scrollEased {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-25%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes slideInSkill {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleInSkill {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* -----------------------------------------
+   14. Animated Skill Cards
+   ----------------------------------------- */
+
+.skills {
+  .skill-card {
+    &.animate-in {
+      opacity: 0;
+      animation: slideInSkill 0.6s ease-out forwards;
+
+      &:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      &:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      &:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      &:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+      &:nth-child(5) {
+        animation-delay: 0.5s;
+      }
+    }
+
+    &.scale-in {
+      animation: scaleInSkill 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+
+      &:nth-child(odd) {
+        animation-delay: 0.1s;
+      }
+      &:nth-child(even) {
+        animation-delay: 0.2s;
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   15. Accessibility Improvements
+   ----------------------------------------- */
+
+.skills {
+  // High contrast mode
+  @media (prefers-contrast: more) {
+    .skill-card {
+      border-width: 2px;
+
+      &::before {
+        height: 4px;
+      }
+    }
+
+    .skill-name {
+      font-weight: 700;
+    }
+  }
+
+  // Reduced motion
+  @media (prefers-reduced-motion: reduce) {
+    &__track {
+      animation: none !important;
+
+      &:hover {
+        animation-play-state: running !important;
+      }
+    }
+
+    .skill-card {
+      animation: none !important;
+      opacity: 1;
+      transform: none;
+
+      &:hover {
+        transform: translateY(-10px) scale(1.05);
+      }
+
+      .skill-icon {
+        animation: none;
+      }
+    }
+  }
+
+  // Focus states
+  .skill-card:focus-within {
+    outline: 2px solid var(--accent-purple);
+    outline-offset: 4px;
+    border-radius: var(--radius-lg);
+  }
+}
+
+/* -----------------------------------------
+   16. Dark/Light Mode Variants
+   ----------------------------------------- */
+
+[data-theme='light'] .skills {
+  background-color: rgba(255, 255, 255, 0.95);
+
+  .section-title {
+    color: var(--dark-primary);
+
+    .text-accent {
+      color: var(--accent-purple);
+    }
+  }
+
+  .skill-card {
+    background: rgba(245, 245, 247, 0.9);
+    border-color: rgba(200, 200, 210, 0.3);
+
+    &:hover {
+      background: rgba(239, 239, 245, 1);
+      border-color: var(--accent-purple);
+    }
+  }
+
+  .skill-name {
+    color: var(--gray-700);
+  }
+}
+
+/* -----------------------------------------
+   17. Responsive Layout
+   ----------------------------------------- */
+
+@media (max-width: 1024px) {
+  .skills {
+    .section-title {
+      font-size: 2.5rem;
+    }
+
+    &__track {
+      gap: 2rem;
+    }
+
+    .skill-card {
+      min-width: 160px;
+      padding: 2rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .skills {
+    padding: var(--spacing-lg) 0;
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    &__track-wrapper {
+      padding: 1.5rem 0;
+
+      &::before,
+      &::after {
+        width: 100px;
+      }
+    }
+
+    .skill-card {
+      min-width: 130px;
+      padding: 1.5rem;
+
+      .skill-icon {
+        font-size: 2rem;
+      }
+
+      .skill-name {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .skills {
+    .section-title {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    &__track {
+      gap: 1rem;
+      padding-left: 1rem;
+    }
+
+    .skill-card {
+      min-width: 110px;
+      padding: 1.25rem;
+
+      .skill-icon {
+        font-size: 1.75rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .skill-name {
+        font-size: 0.8rem;
+      }
+
+      &.with-progress .skill-progress {
+        height: 2px;
+        margin-top: 0.5rem;
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   18. Print Styles
+   ----------------------------------------- */
+
+@media print {
+  .skills {
+    &__track-wrapper {
+      padding: 1rem 0;
+
+      &::before,
+      &::after {
+        display: none;
+      }
+    }
+
+    &__track {
+      animation: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+      padding: 0;
+      transform: none;
+    }
+
+    .skill-card {
+      page-break-inside: avoid;
+      animation: none;
+      transform: none;
+      opacity: 1;
+
+      &:hover {
+        transform: none;
+      }
+
+      &.with-badge .skill-badge {
+        display: none;
+      }
+    }
+  }
+}

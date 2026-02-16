@@ -1,0 +1,226 @@
+/* =========================================
+   RESPONSIVE CONFIGURATION
+   ========================================= */
+
+/* Fluid Typography System */
+:root {
+  /* Responsive font sizes using CSS custom properties */
+  --fs-xs: clamp(0.65rem, 1.5vw, 0.75rem);
+  --fs-sm: clamp(0.75rem, 2vw, 0.875rem);
+  --fs-base: clamp(0.875rem, 2.5vw, 1rem);
+  --fs-lg: clamp(1rem, 3vw, 1.125rem);
+  --fs-xl: clamp(1.125rem, 4vw, 1.25rem);
+  --fs-2xl: clamp(1.25rem, 5vw, 1.5rem);
+  --fs-3xl: clamp(1.5rem, 6vw, 2rem);
+  --fs-4xl: clamp(2rem, 7vw, 2.5rem);
+  --fs-5xl: clamp(2.5rem, 8vw, 3.5rem);
+
+  /* Responsive spacing using CSS custom properties */
+  --spacing-xs-mobile: 0.25rem;
+  --spacing-sm-mobile: 0.5rem;
+  --spacing-md-mobile: 1rem;
+  --spacing-lg-mobile: 1.5rem;
+  --spacing-xl-mobile: 2rem;
+
+  /* Responsive breakpoints for easy reference */
+  --breakpoint-xs: 320px;
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 640px;
+  --breakpoint-lg: 768px;
+  --breakpoint-xl: 1024px;
+  --breakpoint-2xl: 1280px;
+  --breakpoint-3xl: 1536px;
+}
+
+/* Safe area insets for notched devices */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(var(--spacing-md), env(safe-area-inset-left));
+    padding-right: max(var(--spacing-md), env(safe-area-inset-right));
+  }
+
+  .navbar {
+    padding-top: max(var(--spacing-lg), env(safe-area-inset-top));
+  }
+}
+
+/* Landscape orientation adjustments */
+@media (orientation: landscape) {
+  html {
+    font-size: clamp(12px, 1.5vw, 14px);
+  }
+
+  body {
+    max-height: 100vh;
+    overflow-y: auto;
+  }
+
+  .hero {
+    min-height: auto;
+    height: auto;
+    padding: 2rem 0;
+  }
+
+  section {
+    padding-top: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+  }
+}
+
+/* High DPI displays (retina) */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Dark mode preference */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}
+
+/* Light mode preference (if needed) */
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+  }
+}
+
+/* Touch device specific styles */
+@media (hover: none) and (pointer: coarse) {
+  /* Increase touch target sizes */
+  button,
+  a,
+  [role='button'] {
+    min-height: 48px;
+    min-width: 48px;
+  }
+
+  /* Reduce/remove hover effects */
+  a:hover,
+  button:hover {
+    text-decoration: none;
+  }
+
+  /* Disable text selection on long press */
+  * {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Allow text selection in inputs/textareas */
+  input,
+  textarea {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+}
+
+/* Coarse pointer (mouse-like) devices */
+@media (pointer: coarse) {
+  /* Less precise interactions */
+  a,
+  button {
+    padding: var(--spacing-md);
+  }
+}
+
+/* Fine pointer (precise) devices */
+@media (pointer: fine) {
+  /* Can use smaller targets */
+  a,
+  button {
+    padding: var(--spacing-sm);
+  }
+}
+
+/* Large viewport optimizations */
+@media (min-width: 1920px) {
+  :root {
+    font-size: 18px;
+  }
+
+  .container {
+    max-width: 1400px;
+    padding: 0 4rem;
+  }
+}
+
+/* Small viewport optimizations */
+@media (max-width: 360px) {
+  :root {
+    font-size: 13px;
+  }
+
+  body {
+    line-height: 1.5;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  button {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  @page {
+    margin: 2cm;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  a {
+    color: black;
+    text-decoration: underline;
+  }
+
+  .no-print,
+  .navbar,
+  .footer {
+    display: none !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    page-break-after: avoid;
+  }
+
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+}

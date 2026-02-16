@@ -1,0 +1,828 @@
+/* =========================================
+   CONTACT SECTION SCSS
+   ========================================= */
+
+/* -----------------------------------------
+   1. Imports & Config
+   ----------------------------------------- */
+// Variables and Mixins imported globally
+
+/* -----------------------------------------
+   2. Section Layout
+   ----------------------------------------- */
+.contact {
+  padding: var(--spacing-2xl) 0;
+  background-color: var(--dark-secondary);
+  position: relative;
+  overflow: hidden;
+
+  // Background Elements
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: -100px;
+    right: -100px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(79, 70, 229, 0.1) 0%, transparent 70%);
+    z-index: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 2;
+    max-width: 1000px; // Narrower container for contact form focus
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 1rem;
+
+      .text-highlight {
+        position: relative;
+        display: inline-block;
+        color: var(--white);
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 5px;
+          left: 0;
+          width: 100%;
+          height: 12px;
+          background: var(--accent-purple);
+          opacity: 0.6;
+          z-index: -1;
+          transform: rotate(-2deg);
+        }
+      }
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: var(--gray-400);
+    }
+  }
+
+  /* -----------------------------------------
+     3. Contact Wrapper (Grid)
+     ----------------------------------------- */
+  &__wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 4rem;
+
+    @include tablet {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+  }
+
+  /* -----------------------------------------
+     4. Contact Info (Left Column)
+     ----------------------------------------- */
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+
+    h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.75rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: var(--gray-400);
+      line-height: 1.6;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+
+      .icon-box {
+        width: 50px;
+        height: 50px;
+        background: rgba(139, 92, 246, 0.1);
+        border: 1px solid rgba(139, 92, 246, 0.2);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        color: var(--accent-purple);
+        flex-shrink: 0;
+        transition: all 0.3s ease;
+      }
+
+      .details {
+        display: flex;
+        flex-direction: column;
+
+        .label {
+          font-size: 0.875rem;
+          color: var(--gray-500);
+          margin-bottom: 0.25rem;
+          font-weight: 600;
+          text-transform: uppercase;
+        }
+
+        .value {
+          font-size: 1rem;
+          color: var(--white);
+          font-weight: 500;
+          text-decoration: none;
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: var(--accent-purple-light);
+          }
+        }
+      }
+
+      &:hover .icon-box {
+        background: var(--accent-purple);
+        color: var(--white);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+      }
+    }
+  }
+
+  /* -----------------------------------------
+     5. Contact Form (Right Column)
+     ----------------------------------------- */
+  &__form-wrapper {
+    position: relative;
+
+    // Decoration
+    &::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      width: 100px;
+      height: 100px;
+      background: var(--accent-blue);
+      filter: blur(50px);
+      opacity: 0.2;
+      z-index: -1;
+    }
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .form-group {
+      position: relative;
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 1rem 1.25rem;
+        background: rgba(10, 12, 27, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        color: var(--white);
+        font-family: 'Inter', sans-serif;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+
+        &:focus {
+          outline: none;
+          border-color: var(--accent-purple);
+          background: rgba(10, 12, 27, 0.9);
+          box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+        }
+
+        &::placeholder {
+          color: var(--gray-500);
+        }
+      }
+
+      textarea {
+        min-height: 150px;
+        resize: vertical;
+      }
+
+      label {
+        position: absolute;
+        left: 1rem;
+        top: 1rem;
+        color: var(--gray-400);
+        pointer-events: none;
+        transition: all 0.3s ease;
+        opacity: 0; // Hidden by default, or use floating label if desired.
+        // For this design, using placeholders + focus states is cleaner.
+      }
+    }
+
+    .btn-submit {
+      align-self: flex-start;
+      padding: 1rem 3rem;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+      color: var(--white);
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+
+      i {
+        font-size: 0.9rem;
+        transition: transform 0.3s ease;
+      }
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+
+        i {
+          transform: translateX(4px);
+        }
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   6. Contact Form Enhancements
+   ----------------------------------------- */
+
+.contact {
+  // Field focus animations
+  .contact-form {
+    .form-group {
+      // Animated label
+      label {
+        opacity: 1;
+        transform: translateY(-1.5rem) scale(0.85);
+      }
+
+      input:focus ~ label,
+      textarea:focus ~ label,
+      input:not(:placeholder-shown) ~ label,
+      textarea:not(:placeholder-shown) ~ label {
+        opacity: 1;
+        transform: translateY(-1.75rem) scale(0.85);
+      }
+
+      // Field with icon
+      &.with-icon {
+        position: relative;
+
+        .field-icon {
+          position: absolute;
+          left: 1.25rem;
+          top: 1rem;
+          color: var(--accent-purple);
+          font-size: 1.1rem;
+          pointer-events: none;
+          transition: all 0.3s ease;
+        }
+
+        input,
+        textarea {
+          padding-left: 3.5rem;
+        }
+
+        input:focus ~ .field-icon {
+          color: var(--accent-blue);
+        }
+      }
+
+      // Checkbox/Radio variant
+      &.checkbox-group {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+
+        label {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          cursor: pointer;
+          position: static;
+          opacity: 1;
+          transform: none;
+          color: var(--gray-400);
+
+          input[type='checkbox'],
+          input[type='radio'] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: transparent;
+
+            &:checked {
+              background: var(--accent-purple);
+              border-color: var(--accent-purple);
+              box-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
+            }
+
+            &:focus-visible {
+              outline: 2px solid var(--accent-purple);
+              outline-offset: 2px;
+            }
+          }
+
+          input[type='radio'] {
+            border-radius: 50%;
+          }
+        }
+      }
+
+      // Success state
+      &.success {
+        input,
+        textarea {
+          border-color: #10b981;
+          background: rgba(16, 185, 129, 0.05);
+        }
+
+        &::after {
+          content: '✓';
+          position: absolute;
+          right: 1rem;
+          top: 50%;
+          transform: translateY(-50%);
+          color: #10b981;
+          font-weight: bold;
+          font-size: 1.25rem;
+        }
+      }
+
+      // Error state
+      &.error {
+        input,
+        textarea {
+          border-color: #ef4444;
+          background: rgba(239, 68, 68, 0.05);
+        }
+
+        .error-message {
+          color: #ef4444;
+          font-size: 0.875rem;
+          margin-top: 0.5rem;
+          display: block;
+        }
+      }
+    }
+
+    // Form row
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+
+      @include mobile {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+
+  // Character count
+  .char-count {
+    font-size: 0.75rem;
+    color: var(--gray-500);
+    margin-top: 0.25rem;
+    text-align: right;
+
+    &.warning {
+      color: #f59e0b;
+    }
+
+    &.error {
+      color: #ef4444;
+    }
+  }
+}
+
+/* -----------------------------------------
+   7. Contact Info Enhancements
+   ----------------------------------------- */
+
+.contact {
+  &__info {
+    // Colored info item variants
+    .info-item {
+      &.phone {
+        .icon-box {
+          color: #3b82f6;
+          border-color: rgba(59, 130, 246, 0.2);
+          background: rgba(59, 130, 246, 0.1);
+
+          &:hover {
+            background: #3b82f6;
+          }
+        }
+      }
+
+      &.email {
+        .icon-box {
+          color: #ec4899;
+          border-color: rgba(236, 72, 153, 0.2);
+          background: rgba(236, 72, 153, 0.1);
+
+          &:hover {
+            background: #ec4899;
+          }
+        }
+      }
+
+      &.location {
+        .icon-box {
+          color: #10b981;
+          border-color: rgba(16, 185, 129, 0.2);
+          background: rgba(16, 185, 129, 0.1);
+
+          &:hover {
+            background: #10b981;
+          }
+        }
+      }
+
+      &.business-hours {
+        .icon-box {
+          color: #f59e0b;
+          border-color: rgba(245, 158, 11, 0.2);
+          background: rgba(245, 158, 11, 0.1);
+
+          &:hover {
+            background: #f59e0b;
+          }
+        }
+      }
+    }
+
+    // Enhanced hover
+    .info-item:hover {
+      .icon-box {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .value {
+        color: var(--white);
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   8. Button Variants
+   ----------------------------------------- */
+
+.contact {
+  .btn-submit {
+    // Loading variant
+    &.is-loading {
+      opacity: 0.7;
+      pointer-events: none;
+
+      &::after {
+        content: '';
+        display: inline-block;
+        width: 1rem;
+        height: 1rem;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-top-color: var(--white);
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+        margin-left: 0.5rem;
+      }
+    }
+
+    // Success variant
+    &.success {
+      background: linear-gradient(135deg, #10b981, #059669);
+
+      &::after {
+        content: '✓';
+        display: inline-block;
+        margin-left: 0.5rem;
+        animation: scaleIn 0.3s ease-out;
+      }
+    }
+
+    // Error variant
+    &.error {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+    }
+
+    // Secondary variant
+    &--secondary {
+      background: transparent;
+      border: 2px solid var(--accent-purple);
+      color: var(--accent-purple);
+
+      &:hover {
+        background: var(--accent-purple);
+        color: var(--white);
+      }
+    }
+
+    // Icon only
+    &--icon-only {
+      padding: 1rem;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+/* -----------------------------------------
+   9. Contact Section Animations
+   ----------------------------------------- */
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slideInContact {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInForm {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* -----------------------------------------
+   10. Form Validation States
+   ----------------------------------------- */
+
+.contact {
+  &__form-wrapper {
+    // Valid form state
+    &.is-valid {
+      .contact-form {
+        .form-group.error {
+          display: none;
+        }
+      }
+    }
+
+    // Invalid form state
+    &.is-invalid {
+      .btn-submit {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   11. Accessibility Improvements
+   ----------------------------------------- */
+
+.contact {
+  // High contrast mode
+  @media (prefers-contrast: more) {
+    .section-header .text-highlight::after {
+      height: 18px;
+    }
+
+    &__info {
+      border-width: 2px;
+    }
+
+    .contact-form {
+      .form-group input,
+      .contact-form textarea {
+        border-width: 2px;
+      }
+    }
+
+    .btn-submit {
+      border-width: 2px;
+      font-weight: 700;
+    }
+  }
+
+  // Reduced motion
+  @media (prefers-reduced-motion: reduce) {
+    &__info,
+    &__form-wrapper {
+      animation: none !important;
+    }
+
+    .info-item,
+    .form-group input,
+    .form-group textarea,
+    .btn-submit {
+      transition: none;
+    }
+  }
+
+  // Focus visible
+  .contact-form {
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid var(--accent-purple);
+      outline-offset: 2px;
+    }
+  }
+
+  .btn-submit:focus-visible {
+    outline: 2px solid var(--white);
+    outline-offset: 4px;
+  }
+}
+
+/* -----------------------------------------
+   12. Dark/Light Mode Variants
+   ----------------------------------------- */
+
+[data-theme='light'] .contact {
+  background-color: rgba(255, 255, 255, 0.95);
+
+  .section-header .section-title {
+    color: var(--dark-primary);
+  }
+
+  &__info {
+    background: rgba(245, 245, 247, 0.9);
+    border-color: rgba(200, 200, 210, 0.3);
+  }
+
+  .contact-form {
+    .form-group input,
+    .contact-form textarea {
+      background: rgba(255, 255, 255, 1);
+      border-color: rgba(200, 200, 210, 0.4);
+      color: var(--dark-primary);
+
+      &:focus {
+        border-color: var(--accent-purple);
+        background: rgba(255, 255, 255, 1);
+      }
+
+      &::placeholder {
+        color: var(--gray-600);
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   13. Responsive Layout
+   ----------------------------------------- */
+
+@media (max-width: 1024px) {
+  .contact {
+    &__wrapper {
+      gap: 2.5rem;
+    }
+
+    &__info {
+      padding: 1.5rem;
+    }
+
+    .section-header .section-title {
+      font-size: 2.5rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .contact {
+    .section-header {
+      margin-bottom: 2.5rem;
+
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+
+    &__info {
+      padding: 1.5rem;
+      gap: 1.5rem;
+    }
+
+    &__form-wrapper {
+      margin-top: 2rem;
+    }
+
+    .contact-form {
+      .form-group {
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .contact {
+    padding: var(--spacing-lg) 0;
+
+    .section-header {
+      .section-title {
+        font-size: 1.5rem;
+      }
+
+      .section-subtitle {
+        font-size: 0.95rem;
+      }
+    }
+
+    .contact-form .btn-submit {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}
+
+/* -----------------------------------------
+   14. Print Styles
+   ----------------------------------------- */
+
+@media print {
+  .contact {
+    &__form-wrapper {
+      display: none;
+    }
+
+    &__info {
+      page-break-inside: avoid;
+    }
+
+    .btn-submit {
+      display: none;
+    }
+  }
+}

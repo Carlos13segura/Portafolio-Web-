@@ -1,0 +1,771 @@
+/* =========================================
+   ABOUT SECTION SCSS
+   ========================================= */
+
+/* -----------------------------------------
+   1. Imports & Config
+   ----------------------------------------- */
+// Variables and Mixins imported globally
+
+/* -----------------------------------------
+   2. Section Container
+   ----------------------------------------- */
+.about {
+  position: relative;
+  padding: var(--spacing-2xl) 0;
+  background-color: var(--dark-secondary);
+  overflow: hidden;
+
+  @include mobile {
+    padding: var(--spacing-lg) 0;
+  }
+
+  // Background Pattern
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(var(--dark-tertiary) 1px, transparent 1px);
+    background-size: 30px 30px;
+    opacity: 0.3;
+  }
+
+  /* -----------------------------------------
+     3. Grid Layout
+     ----------------------------------------- */
+  .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+
+    @include tablet {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: 3rem;
+    }
+
+    // Ensure mobile devices stack columns (<=768px)
+    @include mobile {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: 2rem;
+      padding: 0 var(--spacing-md);
+    }
+  }
+
+  /* -----------------------------------------
+     4. Content Column
+     ----------------------------------------- */
+  &__content {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+
+    &.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  &__heading {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    @include tablet {
+      justify-content: center;
+    }
+
+    .line {
+      width: 60px;
+      height: 2px;
+      background: var(--accent-purple);
+    }
+
+    h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--white);
+
+      span {
+        color: var(--accent-purple-light);
+      }
+    }
+  }
+
+  &__text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--gray-300);
+    margin-bottom: 1.5rem;
+
+    strong {
+      color: var(--white);
+      font-weight: 600;
+    }
+  }
+
+  /* -----------------------------------------
+     5. Stats Grid
+     ----------------------------------------- */
+  &__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+
+    @include mobile {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+
+  .stat-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    text-align: center;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--accent-purple);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+      .stat-number {
+        color: var(--accent-purple-light);
+        text-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
+      }
+    }
+
+    .stat-number {
+      display: block;
+      font-family: 'Syne', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+  }
+
+  /* -----------------------------------------
+     6. Visual Column
+     ----------------------------------------- */
+  &__visual {
+    position: relative;
+    opacity: 0;
+    transform: translateX(30px);
+    transition: all 0.8s ease-out 0.2s;
+
+    &.is-visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    @include tablet {
+      transform: translateY(30px);
+
+      &.is-visible {
+        transform: translateY(0);
+      }
+    }
+  }
+
+  .experience-card {
+    background: linear-gradient(145deg, rgba(30, 34, 53, 0.9), rgba(20, 24, 41, 0.95));
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    position: relative;
+    box-shadow: var(--shadow-xl);
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: var(--radius-lg);
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      pointer-events: none;
+    }
+
+    h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem;
+      color: var(--white);
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+  }
+
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    &-item {
+      display: flex;
+      gap: 1.5rem;
+      position: relative;
+
+      &:not(:last-child)::before {
+        content: '';
+        position: absolute;
+        top: 3rem;
+        left: 24px; // Align with icon center
+        bottom: -2.5rem;
+        width: 2px;
+        background: rgba(255, 255, 255, 0.05);
+      }
+    }
+
+    &-icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-purple);
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 2;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: var(--accent-purple);
+        color: var(--white);
+        box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
+      }
+    }
+
+    &-content {
+      h4 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--white);
+        margin-bottom: 0.25rem;
+      }
+
+      .role {
+        display: block;
+        font-size: 0.9rem;
+        color: var(--accent-blue-light);
+        margin-bottom: 0.5rem;
+      }
+
+      .description {
+        font-size: 0.95rem;
+        color: var(--gray-400);
+        line-height: 1.5;
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   7. Enhanced Stats Card Variants
+   ----------------------------------------- */
+
+.about {
+  .stat-card {
+    // Gradient variant
+    &.gradient-bg {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(79, 70, 229, 0.1));
+      border-color: rgba(139, 92, 246, 0.2);
+    }
+
+    // Accent color variant
+    &.accent-blue {
+      &:hover .stat-number {
+        color: var(--accent-blue-light);
+        text-shadow: 0 0 15px rgba(79, 70, 229, 0.4);
+      }
+    }
+
+    // Count Up Animation
+    &.count-up {
+      .stat-number {
+        animation: countUp 2s ease-out forwards;
+      }
+    }
+
+    // Icon variant
+    &.with-icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        color: var(--accent-purple);
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   8. Experience Card Enhancements
+   ----------------------------------------- */
+
+.about {
+  .experience-card {
+    // Focus State
+    &:focus-within {
+      outline: 2px solid var(--accent-purple);
+      outline-offset: 4px;
+    }
+
+    // Active State
+    &.active {
+      border-color: var(--accent-purple);
+      background: linear-gradient(145deg, rgba(139, 92, 246, 0.1), rgba(79, 70, 229, 0.1));
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+    }
+
+    // Hover enhance
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(139, 92, 246, 0.2);
+    }
+
+    // Expandable variant
+    &.expandable {
+      cursor: pointer;
+
+      .expand-icon {
+        display: inline-block;
+        margin-left: 0.5rem;
+        transition: transform 0.3s ease;
+      }
+
+      &.expanded .expand-icon {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   9. Timeline Item Variants
+   ----------------------------------------- */
+
+.about {
+  .timeline {
+    &-item {
+      // Alternate layout variant
+      &.alternate {
+        &:nth-child(odd) {
+          flex-direction: row-reverse;
+
+          &::before {
+            left: auto;
+            right: 24px;
+          }
+        }
+      }
+
+      // Animated reveal
+      &.reveal {
+        opacity: 0;
+        transform: translateX(-20px);
+        animation: revealItem 0.6s ease-out forwards;
+
+        &:nth-child(1) {
+          animation-delay: 0.1s;
+        }
+        &:nth-child(2) {
+          animation-delay: 0.2s;
+        }
+        &:nth-child(3) {
+          animation-delay: 0.3s;
+        }
+        &:nth-child(4) {
+          animation-delay: 0.4s;
+        }
+      }
+
+      // Hover effects
+      &:hover {
+        .timeline-icon {
+          transform: scale(1.15) rotate(10deg);
+          box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+        }
+
+        .timeline-content h4 {
+          color: var(--accent-purple-light);
+        }
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   10. Grid Layout Variants
+   ----------------------------------------- */
+
+.about {
+  .container {
+    // Stacked Layout
+    &.stacked {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    // Side by side with overlap
+    &.overlap {
+      gap: 0;
+
+      > :last-child {
+        margin-top: -100px;
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   11. Heading Enhancements
+   ----------------------------------------- */
+
+.about {
+  &__heading {
+    // Animated line
+    .line {
+      animation: expandLine 0.6s ease-out forwards;
+      transform-origin: left;
+    }
+
+    h2 {
+      // Text shadow effect
+      text-shadow: 0 2px 10px rgba(139, 92, 246, 0.2);
+
+      // Animated underline
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--accent-purple);
+        transition: width 0.5s ease;
+      }
+
+      &:hover::after {
+        width: 100%;
+      }
+    }
+
+    // Alternate styles
+    &.centered {
+      justify-content: center;
+    }
+
+    &.right-align {
+      justify-content: flex-end;
+    }
+  }
+}
+
+/* -----------------------------------------
+   12. Text Content Variants
+   ----------------------------------------- */
+
+.about {
+  &__text {
+    // Highlight variant
+    &.highlight-text {
+      position: relative;
+
+      mark {
+        background: rgba(139, 92, 246, 0.2);
+        padding: 0 4px;
+        border-radius: 3px;
+        color: var(--accent-purple-light);
+        font-weight: 600;
+      }
+    }
+
+    // Gradient text
+    &.gradient-text {
+      background: linear-gradient(135deg, var(--gray-300), var(--accent-blue-light));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    // Large variant
+    &.large {
+      font-size: 1.25rem;
+      font-weight: 500;
+    }
+
+    // Italic variant
+    &.italic {
+      font-style: italic;
+      color: var(--gray-400);
+    }
+  }
+}
+
+/* -----------------------------------------
+   13. Stat Card Animations
+   ----------------------------------------- */
+
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes revealItem {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes expandLine {
+  from {
+    width: 0;
+  }
+  to {
+    width: 60px;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* -----------------------------------------
+   14. About Section Intro Animation
+   ----------------------------------------- */
+
+.about {
+  &__content {
+    animation: slideUp 0.8s ease-out;
+  }
+
+  &__visual {
+    animation: slideUp 0.8s ease-out 0.2s backwards;
+
+    &.is-visible {
+      animation: slideUp 0.8s ease-out 0.2s forwards;
+    }
+  }
+}
+
+/* -----------------------------------------
+   15. Accessibility Improvements
+   ----------------------------------------- */
+
+.about {
+  // High contrast mode
+  @media (prefers-contrast: more) {
+    .stat-card {
+      border-width: 2px;
+      font-weight: 700;
+    }
+
+    .experience-card {
+      border-width: 2px;
+    }
+
+    &__heading h2 {
+      font-weight: 900;
+    }
+  }
+
+  // Reduced motion
+  @media (prefers-reduced-motion: reduce) {
+    &__content,
+    &__visual,
+    .stat-card,
+    .timeline-item {
+      animation: none !important;
+      opacity: 1;
+      transform: none !important;
+    }
+
+    .stat-card,
+    .experience-card,
+    .timeline-item {
+      transition: none;
+    }
+  }
+}
+
+/* -----------------------------------------
+   16. Dark/Light Mode Variants
+   ----------------------------------------- */
+
+[data-theme='dark'] .about {
+  .stat-card {
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .experience-card {
+    background: linear-gradient(145deg, rgba(30, 34, 53, 0.9), rgba(20, 24, 41, 0.95));
+  }
+}
+
+[data-theme='light'] .about {
+  background-color: rgba(255, 255, 255, 0.9);
+
+  .stat-card {
+    background: rgba(139, 92, 246, 0.05);
+    border-color: rgba(139, 92, 246, 0.1);
+
+    &:hover {
+      background: rgba(139, 92, 246, 0.1);
+    }
+  }
+
+  .experience-card {
+    background: rgba(245, 245, 247, 1);
+    border-color: rgba(200, 200, 210, 0.3);
+  }
+
+  &__text {
+    color: var(--gray-700);
+  }
+}
+
+/* -----------------------------------------
+   17. Responsive Adjustments
+   ----------------------------------------- */
+
+@media (max-width: 1024px) {
+  .about {
+    &__heading h2 {
+      font-size: 2rem;
+    }
+
+    .stat-card {
+      padding: 1.25rem 1.5rem;
+
+      .stat-number {
+        font-size: 2rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .about {
+    &__heading {
+      flex-direction: column;
+
+      .line {
+        display: none;
+      }
+    }
+
+    &__stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .timeline {
+      &-item::before {
+        left: 14px;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .about {
+    &__heading h2 {
+      font-size: 1.5rem;
+    }
+
+    &__stats {
+      grid-template-columns: 1fr;
+    }
+
+    .experience-card {
+      padding: 1.5rem;
+
+      h3 {
+        font-size: 1.25rem;
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   18. Print Styles
+   ----------------------------------------- */
+
+@media print {
+  .about {
+    &__heading .line {
+      display: none;
+    }
+
+    .stat-card {
+      page-break-inside: avoid;
+    }
+
+    .timeline {
+      &-icon {
+        display: none;
+      }
+
+      &-item::before {
+        display: none;
+      }
+    }
+  }
+}

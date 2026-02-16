@@ -1,0 +1,901 @@
+/* =========================================
+   NAVBAR COMPONENT STYLES
+   ========================================= */
+
+/* -----------------------------------------
+   1. Imports & Config
+   ----------------------------------------- */
+
+// Note: Variables and Mixins are imported globally in main.scss
+
+/* -----------------------------------------
+   2. Component Base
+   ----------------------------------------- */
+
+.navbar {
+  // Positioning
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+
+  // Box Model
+  padding: var(--spacing-lg) 0;
+
+  // Visuals
+  background: transparent;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: background, padding, box-shadow;
+
+  /* -----------------------------------------
+     3. Scrolled State
+     ----------------------------------------- */
+  &--scrolled {
+    padding: var(--spacing-sm) 0;
+    background: rgba(10, 12, 27, 0.85); // Dark primary with opacity
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: var(--shadow-lg);
+
+    // Inner element adjustments
+    .navbar__brand {
+      transform: scale(0.95);
+    }
+  }
+
+  /* -----------------------------------------
+     4. Layout Container
+     ----------------------------------------- */
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 var(--spacing-xl);
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+
+    @include mobile {
+      padding: 0 var(--spacing-md);
+    }
+  }
+
+  /* -----------------------------------------
+     5. Brand / Logo
+     ----------------------------------------- */
+  &__brand {
+    // Typography
+    font-family: 'Syne', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--white);
+
+    // Layout
+    position: relative;
+    z-index: 1002;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+
+    // Accent Styling
+    .text-accent {
+      color: transparent;
+      background: linear-gradient(135deg, var(--accent-purple-light), var(--accent-blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, var(--accent-purple), transparent);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s ease;
+      }
+    }
+
+    // Hover Effect
+    &:hover {
+      .text-accent::after {
+        transform: scaleX(1);
+      }
+    }
+  }
+
+  /* -----------------------------------------
+     6. Desktop Navigation
+     ----------------------------------------- */
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    z-index: 1002;
+
+    @include tablet {
+      gap: 1.5rem;
+    }
+  }
+
+  &__menu {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    @include tablet {
+      gap: 1.5rem;
+    }
+  }
+
+  &__item {
+    position: relative;
+  }
+
+  &__link {
+    // Typography
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--gray-300);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+
+    // Transitions
+    transition: color 0.3s ease;
+    padding: 0.5rem 0;
+    position: relative;
+
+    // Underline Effect
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-purple);
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 0 10px rgba(139, 92, 246, 0.5); // Glow
+    }
+
+    &:hover,
+    &.router-link-active {
+      color: var(--white);
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+
+      &::before {
+        width: 100%;
+      }
+    }
+  }
+
+  /* -----------------------------------------
+     7. Theme Switcher
+     ----------------------------------------- */
+  .theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+
+    .theme-switch {
+      display: inline-block;
+      height: 30px; // Slightly smaller for elegance
+      position: relative;
+      width: 54px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+
+      input {
+        display: none;
+      }
+
+      .slider {
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        bottom: 0;
+        cursor: pointer;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transition: 0.4s;
+        border-radius: 34px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 6px;
+        overflow: hidden;
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.15);
+          border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .sun {
+          color: #fbbf24; // Amber 400
+          font-size: 0.8rem;
+          opacity: 0;
+          transform: rotate(-90deg) scale(0.5);
+          transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .moon {
+          color: #fbbf24; // Amber 400 or lighter yellow
+          font-size: 0.8rem;
+          opacity: 1;
+          transform: rotate(0) scale(1);
+          transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        &::before {
+          background-color: var(--white);
+          bottom: 3px;
+          content: '';
+          height: 22px;
+          left: 3px;
+          position: absolute;
+          transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+          width: 22px;
+          border-radius: 50%;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+          z-index: 2;
+        }
+      }
+
+      input:checked + .slider {
+        background-color: var(--accent-blue);
+        border-color: var(--accent-blue-light);
+
+        .sun {
+          opacity: 1;
+          transform: rotate(0) scale(1);
+        }
+
+        .moon {
+          opacity: 0;
+          transform: rotate(90deg) scale(0.5);
+        }
+
+        &::before {
+          transform: translateX(24px);
+          background-color: var(--white);
+        }
+      }
+    }
+  }
+
+  /* -----------------------------------------
+     8. Mobile Components
+     ----------------------------------------- */
+
+  // Visibility helpers
+  .mobile-only {
+    display: none;
+  }
+  .desktop-only {
+    display: flex;
+  }
+
+  @include mobile {
+    .desktop-only {
+      display: none;
+    }
+    .mobile-only {
+      display: block;
+    }
+  }
+
+  // Hamburger Button
+  .navbar__toggler {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    z-index: 1002;
+  }
+
+  .hamburger {
+    width: 30px;
+    height: 20px;
+    position: relative;
+    cursor: pointer;
+
+    span {
+      display: block;
+      position: absolute;
+      height: 2px;
+      width: 100%;
+      background: var(--white);
+      border-radius: 2px;
+      opacity: 1;
+      left: 0;
+      transform: rotate(0deg);
+      transition: 0.25s ease-in-out;
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+
+      &:nth-child(1) {
+        top: 0px;
+        transform-origin: left center;
+      }
+      &:nth-child(2) {
+        top: 9px;
+        transform-origin: left center;
+      }
+      &:nth-child(3) {
+        top: 18px;
+        transform-origin: left center;
+      }
+    }
+
+    &.is-active span {
+      &:nth-child(1) {
+        transform: rotate(45deg);
+        top: -3px;
+        left: 8px;
+        width: 100%;
+        background: var(--accent-purple);
+      }
+      &:nth-child(2) {
+        width: 0%;
+        opacity: 0;
+      }
+      &:nth-child(3) {
+        transform: rotate(-45deg);
+        top: 19px;
+        left: 8px;
+        width: 100%;
+        background: var(--accent-purple);
+      }
+    }
+  }
+
+  /* -----------------------------------------
+     9. Mobile Menu Overlay
+     ----------------------------------------- */
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--dark-primary);
+    z-index: 1001;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    // Animation States
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+    // Dynamic background effect
+    &::before {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+      top: -50%;
+      left: -50%;
+      animation: rotateBg 20s linear infinite;
+      z-index: -1;
+    }
+
+    &.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: all;
+
+      // Staggered animation for list items
+      .mobile-menu__item {
+        @for $i from 1 through 6 {
+          &:nth-child(#{$i}) {
+            animation: slideInUp 0.5s ease forwards #{$i * 0.1 + 0.2}s;
+          }
+        }
+      }
+    }
+
+    &__content {
+      width: 100%;
+      max-width: 400px;
+      padding: 0 2rem;
+    }
+
+    &__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    &__item {
+      opacity: 0; // Initial state for animation
+      transform: translateY(20px);
+    }
+
+    &__link {
+      // Typography
+      font-family: 'Syne', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--white);
+
+      // Interactive
+      display: inline-block;
+      position: relative;
+      transition:
+        color 0.3s ease,
+        transform 0.3s ease;
+
+      // Stroke effect text
+      -webkit-text-stroke: 1px transparent;
+
+      &:hover {
+        color: transparent;
+        -webkit-text-stroke: 1px var(--accent-purple-light);
+        text-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   10. Keyframes
+   ----------------------------------------- */
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rotateBg {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* -----------------------------------------
+   11. Advanced Hover & Focus States
+   ----------------------------------------- */
+
+// Enhanced Link Interactions
+.navbar__link {
+  &:focus-visible {
+    outline: 2px solid var(--accent-purple);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
+  &.active {
+    color: var(--accent-purple);
+
+    &::before {
+      width: 100%;
+    }
+  }
+
+  // Velocity-based Hover
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent-blue);
+    transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    opacity: 0;
+  }
+
+  &:hover::after {
+    width: 100%;
+    opacity: 0.8;
+  }
+}
+
+// Brand Hover Enhancement
+.navbar__brand {
+  &:focus-visible {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 4px;
+    border-radius: 6px;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+// Hamburger Focus State
+.navbar__toggler {
+  &:focus-visible {
+    outline: 2px solid var(--accent-purple);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+}
+
+/* -----------------------------------------
+   12. Menu Item Variants
+   ----------------------------------------- */
+
+// Secondary Menu Styling
+.navbar__secondary-menu {
+  display: none;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: rgba(10, 12, 27, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 0.75rem;
+  backdrop-filter: blur(10px);
+  min-width: 200px;
+  margin-top: 0.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+
+  .navbar__item:hover & {
+    display: flex;
+  }
+
+  .submenu-link {
+    padding: 0.75rem 1rem;
+    color: var(--gray-400);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+
+    &:hover {
+      background: rgba(139, 92, 246, 0.1);
+      color: var(--accent-purple-light);
+      padding-left: 1.25rem;
+    }
+  }
+}
+
+/* -----------------------------------------
+   13. Sticky Navigation Enhancement
+   ----------------------------------------- */
+
+.navbar {
+  &--sticky {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+  }
+
+  // Smooth transition between states
+  &--transitioning {
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* -----------------------------------------
+   14. Dropdown & Mega Menu
+   ----------------------------------------- */
+
+.navbar__mega-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: rgba(10, 12, 27, 0.98);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 2rem;
+  min-width: 400px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 600px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transform: translateY(-10px) scale(0.95);
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2000;
+
+  &.is-open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: all;
+  }
+
+  .menu-column {
+    h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 1rem;
+      letter-spacing: 0.05em;
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+
+      li a {
+        color: var(--gray-300);
+        text-decoration: none;
+        transition: all 0.2s ease;
+        display: block;
+        padding: 0.5rem 0;
+        position: relative;
+
+        &::before {
+          content: '→';
+          position: absolute;
+          left: -1rem;
+          opacity: 0;
+          transition: all 0.2s ease;
+        }
+
+        &:hover {
+          color: var(--accent-purple-light);
+          padding-left: 1rem;
+
+          &::before {
+            opacity: 1;
+            left: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   15. Search Bar (Optional)
+   ----------------------------------------- */
+
+.navbar__search-bar {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 1rem;
+  background: rgba(10, 12, 27, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  width: 300px;
+  backdrop-filter: blur(10px);
+
+  input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--white);
+    outline: none;
+
+    &::placeholder {
+      color: var(--gray-500);
+    }
+  }
+
+  &.is-open {
+    display: block;
+  }
+}
+
+/* -----------------------------------------
+   16. Notification Badge
+   ----------------------------------------- */
+
+.navbar__badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--accent-purple);
+  color: var(--white);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  animation: pulse 2s infinite;
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+}
+
+/* -----------------------------------------
+   17. Navigation Loading State
+   ----------------------------------------- */
+
+.navbar__loading-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
+  width: 0;
+  transition: width 0.3s ease;
+
+  &.is-loading {
+    width: 70%;
+    animation: loading 1s ease infinite;
+  }
+
+  &.is-complete {
+    width: 100%;
+    animation: loadingComplete 0.5s ease forwards;
+  }
+}
+
+/* -----------------------------------------
+   18. Accessibility Improvements
+   ----------------------------------------- */
+
+// Skip to main content link
+.navbar__skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--accent-purple);
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  z-index: 10000;
+  border-radius: 0 0 4px 0;
+
+  &:focus {
+    top: 0;
+  }
+}
+
+// Reduce motion for users who prefer it
+@media (prefers-reduced-motion: reduce) {
+  .navbar {
+    transition: none;
+
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* -----------------------------------------
+   19. Dark Mode Theme Toggle
+   ----------------------------------------- */
+
+.navbar {
+  &[data-theme='dark'] {
+    .navbar__link {
+      color: var(--gray-200);
+    }
+
+    .theme-switch .slider {
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+  }
+
+  &[data-theme='light'] {
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--dark-primary);
+
+    .navbar__link {
+      color: var(--dark-primary);
+    }
+
+    .hamburger span {
+      background: var(--dark-primary);
+    }
+  }
+}
+
+/* -----------------------------------------
+   20. Additional Animations
+   ----------------------------------------- */
+
+@keyframes loading {
+  0% {
+    width: 0;
+  }
+  50% {
+    width: 80%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes loadingComplete {
+  from {
+    width: 100%;
+    opacity: 1;
+  }
+  to {
+    width: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(139, 92, 246, 0);
+  }
+}
+
+/* -----------------------------------------
+   21. Print Styles
+   ----------------------------------------- */
+@media print {
+  .navbar {
+    position: absolute;
+    background: white;
+    color: black;
+
+    &__link,
+    &__brand {
+      color: black !important;
+      text-shadow: none !important;
+    }
+
+    .theme-switch-wrapper,
+    .mobile-only,
+    .navbar__search-bar,
+    .navbar__badge,
+    .navbar__loading-bar {
+      display: none !important;
+    }
+  }
+}
+
+/* -----------------------------------------
+   22. High Contrast Mode
+   ----------------------------------------- */
+
+@media (prefers-contrast: more) {
+  .navbar {
+    &__link {
+      font-weight: 700;
+
+      &::before {
+        height: 3px;
+      }
+    }
+
+    .theme-switch .slider {
+      border-width: 2px;
+    }
+  }
+}

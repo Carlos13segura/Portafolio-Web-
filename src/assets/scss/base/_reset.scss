@@ -1,0 +1,113 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  // Responsive font sizing
+  font-size: clamp(14px, 2vw, 16px);
+  scroll-behavior: smooth;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  font-family: $font-secondary;
+  background-color: $color-primary;
+  color: $color-text;
+  overflow-x: hidden;
+  line-height: 1.6;
+
+  // Touch-friendly improvements
+  @include touch-device {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+  }
+}
+
+// Responsive viewport settings
+@viewport {
+  width: device-width;
+  zoom: 1;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+
+  // Touch-friendly link targets
+  @include touch-device {
+    min-height: 44px; // Apple's touch target recommendation
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+
+  // Touch-friendly buttons
+  @include touch-device {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0.5rem;
+  }
+}
+
+img,
+picture,
+video,
+canvas {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+// Responsive iframe
+iframe {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+// Prevent text from overflowing
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+// Make all form elements responsive
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+// Responsive tables
+table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow-x: auto;
+  display: block;
+
+  @include mobile {
+    font-size: 0.875rem;
+  }
+}

@@ -1,0 +1,838 @@
+/* =========================================
+   SERVICES SECTION SCSS
+   ========================================= */
+
+/* -----------------------------------------
+   1. Imports & Config
+   ----------------------------------------- */
+// Variables and Mixins imported globally
+
+/* -----------------------------------------
+   2. Section Container
+   ----------------------------------------- */
+.services {
+  padding: var(--spacing-2xl) 0;
+  background-color: var(--dark-secondary);
+  position: relative;
+  z-index: 1;
+
+  // Background Elements
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(139, 92, 246, 0.05) 0%, transparent 70%);
+    z-index: -1;
+  }
+
+  .container {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* -----------------------------------------
+     3. Section Header
+     ----------------------------------------- */
+  .section-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 4rem;
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 1rem;
+
+      .text-gradient {
+        background: linear-gradient(135deg, var(--accent-blue-light), var(--accent-purple));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: var(--gray-400);
+      line-height: 1.6;
+    }
+  }
+
+  /* -----------------------------------------
+     4. Services Grid
+     ----------------------------------------- */
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding: 1rem;
+
+    @include tablet {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    @include mobile {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+
+  /* -----------------------------------------
+     5. Service Card
+     ----------------------------------------- */
+  .service-card {
+    position: relative;
+    background: rgba(30, 34, 53, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem 2rem;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+    // group: hover - handling via parent/child selectors below
+
+    // Hover State (Lift & Glow)
+    &:hover {
+      transform: translateY(-10px);
+      background: rgba(30, 34, 53, 0.8);
+      border-color: rgba(139, 92, 246, 0.3);
+      box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(139, 92, 246, 0.1),
+        inset 0 0 20px rgba(139, 92, 246, 0.05);
+
+      .icon-wrapper {
+        transform: scale(1.1) rotate(5deg);
+        background: var(--accent-purple);
+
+        i {
+          color: var(--white);
+          transform: scale(1.1);
+        }
+      }
+
+      .service-title {
+        color: var(--accent-purple-light);
+      }
+
+      .read-more {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    // Gradient Border Effect (::before)
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius-lg);
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0.5;
+      transition: opacity 0.3s ease;
+    }
+  }
+
+  /* -----------------------------------------
+     5.1 Card Content
+     ----------------------------------------- */
+  .icon-wrapper {
+    width: 70px;
+    height: 70px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    position: relative;
+    z-index: 2;
+
+    i {
+      font-size: 2rem;
+      transition: all 0.4s ease;
+      // Color used from inline style or class, simpler to inherit
+      color: inherit;
+    }
+  }
+
+  .service-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .service-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 1rem;
+    transition: color 0.3s ease;
+  }
+
+  .service-description {
+    font-size: 1rem;
+    color: var(--gray-400);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  /* -----------------------------------------
+     5.2 Read More Link (Hidden by default)
+     ----------------------------------------- */
+  .read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--accent-purple);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease 0.1s;
+
+    i {
+      font-size: 0.75rem;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover i {
+      transform: translateX(4px);
+    }
+  }
+
+  /* -----------------------------------------
+     6. Decorative Blobs
+     ----------------------------------------- */
+  .service-blob {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: var(--accent-purple);
+    filter: blur(80px);
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: 1;
+
+    &.top-right {
+      top: -50px;
+      right: -50px;
+    }
+
+    &.bottom-left {
+      bottom: -50px;
+      left: -50px;
+      background: var(--accent-blue);
+    }
+  }
+
+  // Show blobs on hover
+  .service-card:hover .service-blob {
+    opacity: 0.15;
+  }
+}
+
+/* -----------------------------------------
+   6. Service Card Variants & States
+   ----------------------------------------- */
+
+.services {
+  .service-card {
+    // Feature variant
+    &.featured {
+      grid-column: span 2;
+
+      @include mobile {
+        grid-column: span 1;
+      }
+
+      .icon-wrapper {
+        width: 100px;
+        height: 100px;
+        font-size: 3rem;
+      }
+    }
+
+    // Highlighted card
+    &.highlight {
+      border-color: var(--accent-purple);
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(79, 70, 229, 0.05));
+      position: relative;
+
+      &::before {
+        opacity: 1;
+      }
+
+      .ribbon {
+        position: absolute;
+        top: 20px;
+        right: -30px;
+        background: var(--accent-purple);
+        color: var(--white);
+        padding: 0.5rem 3rem;
+        transform: rotate(45deg);
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        box-shadow: 0 5px 10px rgba(139, 92, 246, 0.3);
+      }
+    }
+
+    // Disabled state
+    &.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+
+      .service-title {
+        text-decoration: line-through;
+      }
+    }
+
+    // Coming soon state
+    &.coming-soon {
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(3px);
+        border-radius: var(--radius-lg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        color: var(--white);
+        font-weight: 600;
+      }
+    }
+
+    // Active/Selected state
+    &.active {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 20px rgba(79, 70, 229, 0.3);
+      background: rgba(79, 70, 229, 0.05);
+
+      .icon-wrapper {
+        background: var(--accent-blue);
+        color: var(--white);
+
+        i {
+          color: var(--white);
+        }
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   7. Icon Wrapper Variants
+   ----------------------------------------- */
+
+.services {
+  .icon-wrapper {
+    // Circular variant
+    &.circular {
+      border-radius: 50%;
+    }
+
+    // Square variant
+    &.square {
+      border-radius: 8px;
+    }
+
+    // Animated background
+    &.animated-bg {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.05));
+      animation: shimmerIcon 3s ease-in-out infinite;
+    }
+
+    // Gradient icon
+    &.gradient-icon {
+      i {
+        background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    }
+
+    // Glow effect
+    &.glow {
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+    }
+  }
+}
+
+/* -----------------------------------------
+   8. Service Title Variants
+   ----------------------------------------- */
+
+.services {
+  .service-title {
+    // Uppercase variant
+    &.uppercase {
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    // With icon
+    &.with-icon {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+
+      i {
+        font-size: 1.25rem;
+      }
+    }
+
+    // Animated underline
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
+      transition: width 0.4s ease;
+    }
+
+    &:hover::after {
+      width: 100%;
+    }
+  }
+}
+
+/* -----------------------------------------
+   9. Service Description Variants
+   ----------------------------------------- */
+
+.services {
+  .service-description {
+    // With highlight
+    &.highlight-key {
+      mark {
+        background: rgba(139, 92, 246, 0.2);
+        padding: 0 4px;
+        border-radius: 2px;
+        color: var(--accent-purple-light);
+        font-weight: 600;
+      }
+    }
+
+    // Large text
+    &.large {
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    // Compact text
+    &.compact {
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+  }
+}
+
+/* -----------------------------------------
+   10. Read More Link Variants
+   ----------------------------------------- */
+
+.services {
+  .read-more {
+    // With arrow animation
+    &.arrow-animate {
+      position: relative;
+      padding-right: 1.25rem;
+
+      &::after {
+        content: '→';
+        position: absolute;
+        right: 0;
+        transition: all 0.3s ease;
+      }
+
+      &:hover::after {
+        transform: translateX(5px);
+      }
+    }
+
+    // Button style
+    &.btn-style {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      border-radius: 6px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: rgba(139, 92, 246, 0.2);
+        border-color: var(--accent-purple);
+      }
+    }
+
+    // Icon style
+    &.with-icon {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      i {
+        transition: transform 0.3s ease;
+      }
+
+      &:hover i {
+        transform: translateX(3px);
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   11. Service Grid Layout Variants
+   ----------------------------------------- */
+
+.services {
+  &__grid {
+    // Masonry layout variant
+    &.masonry {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    // Centered layout
+    &.centered {
+      justify-items: center;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    // Compact layout
+    &.compact {
+      gap: 1rem;
+
+      .service-card {
+        padding: 1.5rem;
+      }
+    }
+
+    // Dense layout
+    &.dense {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+
+      @include tablet {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @include mobile {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   12. Animations
+   ----------------------------------------- */
+
+@keyframes shimmerIcon {
+  0%,
+  100% {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.05));
+  }
+  50% {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.08));
+  }
+}
+
+@keyframes slideInService {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleInService {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* -----------------------------------------
+   13. Animated Service Cards
+   ----------------------------------------- */
+
+.services {
+  .service-card {
+    &.animate-in {
+      animation: slideInService 0.6s ease-out forwards;
+
+      &:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      &:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      &:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      &:nth-child(4) {
+        animation-delay: 0.1s;
+      }
+      &:nth-child(5) {
+        animation-delay: 0.2s;
+      }
+      &:nth-child(6) {
+        animation-delay: 0.3s;
+      }
+    }
+
+    &.scale-in {
+      animation: scaleInService 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+
+      &:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      &:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      &:nth-child(3) {
+        animation-delay: 0.15s;
+      }
+      &:nth-child(4) {
+        animation-delay: 0.05s;
+      }
+      &:nth-child(5) {
+        animation-delay: 0.1s;
+      }
+      &:nth-child(6) {
+        animation-delay: 0.15s;
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   14. Accessibility Improvements
+   ----------------------------------------- */
+
+.services {
+  // High contrast mode
+  @media (prefers-contrast: more) {
+    .service-card {
+      border-width: 2px;
+    }
+
+    &__grid {
+      gap: 2.5rem;
+    }
+
+    .service-title {
+      font-weight: 900;
+    }
+  }
+
+  // Reduced motion
+  @media (prefers-reduced-motion: reduce) {
+    .service-card {
+      animation: none !important;
+      transition: none;
+
+      &:hover {
+        transform: none;
+      }
+
+      .icon-wrapper,
+      .read-more {
+        animation: none;
+        transition: none;
+      }
+    }
+  }
+
+  // Focus states
+  .read-more:focus-visible {
+    outline: 2px solid var(--accent-purple);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
+  .service-card:focus-within {
+    outline: 2px solid var(--accent-purple);
+    outline-offset: -2px;
+    border-radius: var(--radius-lg);
+  }
+}
+
+/* -----------------------------------------
+   15. Dark/Light Mode Variants
+   ----------------------------------------- */
+
+[data-theme='light'] .services {
+  background-color: rgba(255, 255, 255, 0.95);
+
+  .section-header .section-title {
+    color: var(--dark-primary);
+  }
+
+  .service-card {
+    background: rgba(245, 245, 247, 0.9);
+    border-color: rgba(200, 200, 210, 0.3);
+
+    &:hover {
+      background: rgba(239, 239, 245, 1);
+      border-color: var(--accent-purple);
+    }
+  }
+
+  .service-description {
+    color: var(--gray-700);
+  }
+
+  .icon-wrapper {
+    background: rgba(139, 92, 246, 0.08);
+    border-color: rgba(139, 92, 246, 0.15);
+  }
+}
+
+/* -----------------------------------------
+   16. Responsive Layout
+   ----------------------------------------- */
+
+@media (max-width: 1200px) {
+  .services {
+    &__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .service-card.featured {
+      grid-column: span 1;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .services {
+    padding: var(--spacing-lg) 0;
+
+    .section-header {
+      margin-bottom: 2.5rem;
+
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+
+    &__grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      padding: 2rem;
+
+      .icon-wrapper {
+        width: 60px;
+        height: 60px;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .services {
+    &__grid {
+      gap: 1rem;
+    }
+
+    .service-card {
+      padding: 1.5rem;
+
+      .icon-wrapper {
+        width: 50px;
+        height: 50px;
+
+        i {
+          font-size: 1.5rem;
+        }
+      }
+
+      .service-title {
+        font-size: 1.25rem;
+      }
+
+      .service-description {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
+
+/* -----------------------------------------
+   17. Print Styles
+   ----------------------------------------- */
+
+@media print {
+  .services {
+    .service-blob {
+      display: none;
+    }
+
+    .service-card {
+      page-break-inside: avoid;
+      box-shadow: none;
+      border: 1px solid #ccc;
+
+      &:hover {
+        transform: none;
+        box-shadow: none;
+      }
+
+      .read-more {
+        display: none;
+      }
+    }
+
+    .ribbon {
+      display: none;
+    }
+  }
+}
